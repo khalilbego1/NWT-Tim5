@@ -1,41 +1,33 @@
 package etf.unsa.ba.user_management_service;
 
-import etf.unsa.ba.user_management_service.model.Role;
-import etf.unsa.ba.user_management_service.model.User;
-import etf.unsa.ba.user_management_service.service.RoleDataService;
-import etf.unsa.ba.user_management_service.service.UserDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import etf.unsa.ba.user_management_service.model.entity.RoleEntity;
+import etf.unsa.ba.user_management_service.model.entity.UserEntity;
+import etf.unsa.ba.user_management_service.repository.RoleRepository;
+import etf.unsa.ba.user_management_service.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
 @EntityScan
-public class UserManagementServiceApplication implements CommandLineRunner {
+public class UserManagementServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserManagementServiceApplication.class, args);
     }
 
-    @Autowired
-    RoleDataService roleDataService;
-    @Autowired
-    UserDataService userDataService;
+    @Bean
+    public CommandLineRunner insertData(UserRepository userRepository, RoleRepository roleRepository) {
+        return (args) -> {
+            roleRepository.save(new RoleEntity("ADMIN", "User with admin privileges"));
+            roleRepository.save(new RoleEntity("EMPLOYEE", null));
 
-    @Override
-    public void run(String... args) throws Exception {
-        roleDataService.saveRole(new Role(
-                "ADMIN",
-                "User with admin privileges"
-        ));
-        userDataService.saveUser(new User(
-                "test",
-                "test",
-                "test",
-                "test",
-                1
-        ));
+            for (RoleEntity role : roleRepository.findAll()) {
+                userRepository.save(new UserEntity("lejla", "solak", "lsolak", "lsolak", role));
+            }
+        };
     }
 }

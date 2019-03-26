@@ -28,7 +28,6 @@ public class RoleDataService {
 
     public void saveRole(Role role) {
         roleRepository.save(new RoleEntity(
-                0,
                 role.getName(),
                 role.getDescription()
         ));
