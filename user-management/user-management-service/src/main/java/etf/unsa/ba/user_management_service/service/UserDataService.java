@@ -1,0 +1,46 @@
+package etf.unsa.ba.user_management_service.service;
+
+import etf.unsa.ba.user_management_service.model.User;
+import etf.unsa.ba.user_management_service.model.entity.UserEntity;
+import etf.unsa.ba.user_management_service.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserDataService {
+    private UserRepository userRepository;
+
+    @Autowired
+    public UserDataService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User getUserById(Integer Id) {
+        if (userRepository.findById(Id).isPresent()) {
+            UserEntity userEntity = userRepository.findById(Id).get();
+            return new User(
+                    userEntity.getFirstName(),
+                    userEntity.getLastName(),
+                    userEntity.getUsername(),
+                    userEntity.getPassword(),
+                    userEntity.getRoleId()
+            );
+        }
+        return null;
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(new UserEntity(
+                0,
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getRoleId()
+        ));
+    }
+
+    public static void main(String ... args) {
+
+    }
+}
