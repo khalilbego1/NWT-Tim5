@@ -3,6 +3,7 @@ package com.nwt.locationTransport.Entities;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 @Entity
 @Table(name = "CITIES")
 public class City {
@@ -18,5 +19,10 @@ public class City {
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Destination> destinations = new HashSet<>();
+
+    public City(String name, Region region) {
+        this.name = name;
+        this.region = region;
+    }
 }
 

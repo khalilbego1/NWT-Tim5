@@ -20,5 +20,8 @@ public class Region {
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<City> cities = new HashSet<>();
 
-
+    public Region(String name, Country country) {
+        this.name = name;
+        this.country = country;
+    }
 }

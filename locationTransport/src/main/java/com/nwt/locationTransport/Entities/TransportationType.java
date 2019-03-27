@@ -14,4 +14,8 @@ public class TransportationType {
     private String name;
     @OneToMany(mappedBy = "transportationType",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Transportation> transportationSet = new HashSet<>();
+
+    public TransportationType(String name) {
+        this.name = name;
+    }
 }
