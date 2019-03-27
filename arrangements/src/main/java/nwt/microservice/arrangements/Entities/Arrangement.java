@@ -7,19 +7,24 @@ import java.util.Set;
 @Table(name = "Arrangement")
 public class Arrangement {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer ArrangementID;
+
+    public Arrangement(){
+
+    }
 
     @ManyToOne
     @JoinColumn(name = "\"ArrangementTypeID\"")
-    private AdditionalActivityType ArrangementTypeID;
+    private ArrangementType ArrangementTypeID;
 
-    @ManyToOne
-    @JoinColumn(name = "DestinationID")
-    private AdditionalActivityType DestinationID;
+//    @ManyToOne
+//    @JoinColumn(name = "DestinationID")
+//    private AdditionalActivityType DestinationID;
 
-    @ManyToOne
-    @JoinColumn(name = "TransportationID")
-    private AdditionalActivityType TransportationID;
+//    @ManyToOne
+//    @JoinColumn(name = "TransportationID")
+//    private AdditionalActivityType TransportationID;
 
     @ManyToMany
     @JoinTable(
