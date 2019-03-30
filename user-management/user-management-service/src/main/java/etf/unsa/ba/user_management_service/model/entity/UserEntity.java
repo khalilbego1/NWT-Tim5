@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -14,20 +16,17 @@ import javax.persistence.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private int Id;
+    @NotBlank(message = "First name can't be blank")
     private String firstName;
+    @NotBlank(message = "Last name can't be blank")
     private String lastName;
+    @NotBlank(message = "Username name can't be blank")
     private String username;
+    @NotBlank(message = "Password name can't be blank")
     private String password;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "roleId")
     private RoleEntity role;
-
-    public UserEntity(String firstName, String lastName, String username, String password, RoleEntity role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
 }

@@ -1,12 +1,11 @@
 package etf.unsa.ba.user_management_service.service;
 
-import etf.unsa.ba.user_management_service.model.Role;
-import etf.unsa.ba.user_management_service.model.User;
-import etf.unsa.ba.user_management_service.model.entity.RoleEntity;
 import etf.unsa.ba.user_management_service.model.entity.UserEntity;
 import etf.unsa.ba.user_management_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserDataService {
@@ -17,36 +16,30 @@ public class UserDataService {
         this.userRepository = userRepository;
     }
 
-    public User getUserById(Integer Id) {
+    UserEntity getById(Integer Id) {
         if (userRepository.findById(Id).isPresent()) {
-            UserEntity userEntity = userRepository.findById(Id).get();
-            return new User(
-                    userEntity.getFirstName(),
-                    userEntity.getLastName(),
-                    userEntity.getUsername(),
-                    userEntity.getPassword(),
-                    new Role(
-                            userEntity.getRole().getName(),
-                            userEntity.getRole().getDescription()
-                    ));
+            return userRepository.findById(Id).get();
         }
         return null;
     }
 
-    public void saveUser(User user) {
-        userRepository.save(new UserEntity(
-                user.getFirstName(),
-                user.getLastName(),
-                user.getUsername(),
-                user.getPassword(),
-                new RoleEntity(
-                        user.getRole().getName(),
-                        user.getRole().getDescription()
-                ))
-        );
+    List<UserEntity> getAll() {
+        return userRepository.findAll();
     }
 
-    public static void main(String... args) {
+    UserEntity getForLogin(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
 
+    UserEntity insert(UserEntity user) {
+        return userRepository.save(user);
+    }
+
+    public UserEntity update(UserEntity user) {
+        return userRepository.save(user);
+    }
+
+    void delete(UserEntity user) {
+        userRepository.deleteById(user.getId());
     }
 }
