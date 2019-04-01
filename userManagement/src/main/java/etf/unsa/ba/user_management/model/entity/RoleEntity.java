@@ -1,11 +1,12 @@
 package etf.unsa.ba.user_management.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,12 +16,20 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "Roles")
 public class RoleEntity {
+    public enum Type {
+        ADMIN,
+        PASSENGER,
+        EMPLOYEE
+    }
+
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-    @NotBlank(message = "Name can't be blank")
-    private String name;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Type type;
     private String description;
-//    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<UserEntity> users = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserEntity> users = new HashSet<>();
 }
