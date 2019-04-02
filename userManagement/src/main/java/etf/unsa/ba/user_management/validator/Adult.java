@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, ANNOTATION_TYPE, PARAMETER})
 @Constraint(validatedBy = AdultValidator.class)
 public @interface Adult {
-    String message() default "{adult}";
+    String message() default "{user.dateOfBirth.adult}";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 }

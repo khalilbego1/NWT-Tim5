@@ -1,7 +1,5 @@
 package etf.unsa.ba.user_management;
 
-import etf.unsa.ba.user_management.model.entity.RoleEntity;
-import etf.unsa.ba.user_management.model.entity.UserEntity;
 import etf.unsa.ba.user_management.repository.RoleRepository;
 import etf.unsa.ba.user_management.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -31,6 +30,14 @@ public class UserManagementApplication {
 //                userRepository.save(new UserEntity(0, "Lejla", "Solak", "lsolak", "lsolak123", role));
 //            }
         };
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:message");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
     @Bean

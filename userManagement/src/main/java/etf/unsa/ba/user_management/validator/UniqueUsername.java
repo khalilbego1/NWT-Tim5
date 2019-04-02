@@ -14,7 +14,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, ANNOTATION_TYPE, PARAMETER})
 @Constraint(validatedBy = UniqueUsernameValidator.class)
 public @interface UniqueUsername {
-    String message() default "{uniqueUsername}";
+    String message() default "{user.username.uniqueUsername}";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

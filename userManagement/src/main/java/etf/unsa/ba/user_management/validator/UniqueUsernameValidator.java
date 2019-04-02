@@ -1,6 +1,6 @@
 package etf.unsa.ba.user_management.validator;
 
-import etf.unsa.ba.user_management.service.data.UserDataService;
+import etf.unsa.ba.user_management.service.data.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 
 @Component
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
-    private UserDataService userDataService;
+    private UserService userService;
 
     @Autowired
-    public UniqueUsernameValidator(UserDataService userDataService) {
-        this.userDataService = userDataService;
+    public UniqueUsernameValidator(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -22,6 +22,6 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
 
     @Override
     public boolean isValid(String username, ConstraintValidatorContext constraintValidatorContext) {
-        return userDataService.getByUsername(username) == null;
+        return userService.getByUsername(username) == null;
     }
 }

@@ -22,11 +22,12 @@ public class RoleEntity {
         EMPLOYEE
     }
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-    @NotNull
+    @NotNull(message = "{role.type.notNull}")
     @Enumerated(EnumType.STRING)
+    @Column(unique = true, length = 50)
     private Type type;
     private String description;
     @JsonIgnore

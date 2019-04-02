@@ -1,16 +1,18 @@
 package etf.unsa.ba.user_management.contoller;
 
+import etf.unsa.ba.user_management.model.LoginInput;
 import etf.unsa.ba.user_management.model.entity.RoleEntity;
 import etf.unsa.ba.user_management.model.entity.UserEntity;
 import etf.unsa.ba.user_management.service.assembler.RoleResourceAssembler;
 import etf.unsa.ba.user_management.service.assembler.UserResourceAssembler;
-import etf.unsa.ba.user_management.service.data.RoleDataService;
-import etf.unsa.ba.user_management.service.data.UserDataService;
+import etf.unsa.ba.user_management.service.data.RoleService;
+import etf.unsa.ba.user_management.service.data.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -26,23 +28,27 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@SuppressWarnings("ALL")
 @RestController
 @RequestMapping("/travelAgency")
 public class UserManagementController {
-    private final UserDataService userDataService;
+    private final UserService userService;
     private final UserResourceAssembler userResourceAssembler;
     private final RoleResourceAssembler roleResourceAssembler;
-    private RoleDataService roleDataService;
+    private RoleService roleDataService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserManagementController(UserDataService userDataService,
+    public UserManagementController(UserService userService,
                                     UserResourceAssembler userResourceAssembler,
                                     RoleResourceAssembler roleResourceAssembler,
-                                    RoleDataService roleDataService) {
+                                    RoleService roleDataService,
+                                    BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userResourceAssembler = userResourceAssembler;
         this.roleResourceAssembler = roleResourceAssembler;
-        this.userDataService = userDataService;
+        this.userService = userService;
         this.roleDataService = roleDataService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -57,9 +63,21 @@ public class UserManagementController {
         return errors;
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginInput loginInput) {
+        UserEntity foundUser = userService.getByUsername(loginInput.getUsername());
+        if (foundUser == null)
+            return new ResponseEntity<String>("Username or password are not correct", HttpStatus.UNAUTHORIZED);
+        else {
+            if (bCryptPasswordEncoder.matches(loginInput.getPassword(),foundUser.getPassword()))
+                return new ResponseEntity<String>("Login successful", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Username or password are not correct", HttpStatus.UNAUTHORIZED);
+    }
+
     @GetMapping("/users")
     public Resources<Resource<UserEntity>> allUsers() {
-        List<Resource<UserEntity>> users = userDataService.getAll()
+        List<Resource<UserEntity>> users = userService.getAll()
                 .stream()
                 .map(userResourceAssembler::toResource)
                 .collect(Collectors.toList());
@@ -69,17 +87,17 @@ public class UserManagementController {
 
     @GetMapping("/users/{id}")
     public Resource<UserEntity> oneUser(@PathVariable int id) {
-        UserEntity found = userDataService.getById(id);
+        UserEntity found = userService.getById(id);
         return userResourceAssembler.toResource(found);
     }
 
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
-        if (userDataService.getByUsername(user.getUsername()) != null) {
+        if (userService.getByUsername(user.getUsername()) != null) {
+            return new ResponseEntity<>("User with the same username already exists", HttpStatus.CONFLICT);
         }
-
         Resource<UserEntity> resource = userResourceAssembler.toResource(
-                userDataService.insert(user)
+                userService.insert(user)
         );
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
@@ -87,10 +105,10 @@ public class UserManagementController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<?> editUser(@RequestBody UserEntity user, @PathVariable int id) throws URISyntaxException {
+    public ResponseEntity<?> editUser(@Valid @RequestBody UserEntity user, @PathVariable int id) throws URISyntaxException {
         user.setId(id);
         Resource<UserEntity> resource = userResourceAssembler.toResource(
-                userDataService.update(user)
+                userService.update(user)
         );
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
@@ -101,7 +119,7 @@ public class UserManagementController {
     public ResponseEntity<?> deleteUser(@PathVariable int id) {
         UserEntity user = new UserEntity();
         user.setId(id);
-        userDataService.delete(user);
+        userService.delete(user);
 
         return ResponseEntity.noContent().build();
     }
@@ -125,7 +143,7 @@ public class UserManagementController {
     @GetMapping("/roles/{id}/users")
     public Resources<Resource<UserEntity>> usersForRole(@PathVariable int id) {
         RoleEntity found = roleDataService.getById(id);
-        List<Resource<UserEntity>> users = userDataService.getUsersForRoleId(found)
+        List<Resource<UserEntity>> users = userService.getUsersForRoleId(found)
                 .stream()
                 .map(userResourceAssembler::toResource)
                 .collect(Collectors.toList());
@@ -144,7 +162,7 @@ public class UserManagementController {
     }
 
     @PutMapping("/roles/{id}")
-    public ResponseEntity<?> editRole(@RequestBody RoleEntity role, @PathVariable int id) throws URISyntaxException {
+    public ResponseEntity<?> editRole(@Valid @RequestBody RoleEntity role, @PathVariable int id) throws URISyntaxException {
         role.setId(id);
         Resource<RoleEntity> resource = roleResourceAssembler.toResource(
                 roleDataService.update(role)

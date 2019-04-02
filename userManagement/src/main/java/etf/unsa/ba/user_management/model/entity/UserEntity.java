@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -21,26 +22,26 @@ public class UserEntity {
     private int Id;
     @NotBlank(message = "{user.firstName.notBlank}")
     private String firstName;
-    @NotBlank(message = "Last name can't be blank")
+    @NotBlank(message = "{user.lastName.notBlank}")
     private String lastName;
-    @NotBlank(message = "Username name can't be blank")
-    @Size(min = 8, max = 20, message = "Username has to be between 8 and 20 characters long")
-    @UniqueUsername(message = "{user.username.uniqueUsername}")
+    @NotBlank(message = "{user.username.notBlank}")
+    @Size(min = 6, max = 10, message = "{user.username.size}")
+    @UniqueUsername
+    @Column(unique = true, length = 50)
     private String username;
-    @NotBlank(message = "Password name can't be blank")
-    //@Size(min = 8, max = 20, message = "Password has to be between 8 and 20 characters long")
+    @NotBlank(message = "{user.password.notBlank}")
+    @Size(min = 8, message = "{user.password.size}")
     private String password;
-    @NotNull
+    @Valid
+    @NotNull(message = "{user.role.notNull}")
     @ManyToOne
     @JoinColumn(name = "roleId")
     private RoleEntity role;
-    @NotBlank(message = "Email can't be blank")
-    @Pattern(regexp = ".+@.+\\.[a-z]+")
+    @NotBlank(message = "{user.email.notBlank}")
+    @Pattern(regexp = "[a-zA-Z0-9]+[._%+-]?[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\\.[A-Za-z]{2,4}", message = "{user.email.regex}")
     private String email;
-    @NotNull(message = "{user.dateOfBirth.notNull")
+    @NotNull(message = "{user.dateOfBirth.notNull}")
     @Past(message = "{user.dateOfBirth.past}")
-    @Adult(message = "{user.dateOfBirth.adult}")
+    @Adult
     private LocalDate dateOfBirth;
 }
-
-//TODO: set messages in message.properties

@@ -1,10 +1,8 @@
 package etf.unsa.ba.user_management;
 
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 public class Config {

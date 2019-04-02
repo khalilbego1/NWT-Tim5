@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RoleDataService {
+public class RoleService {
     private RoleRepository roleRepository;
 
     @Autowired
-    public RoleDataService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
