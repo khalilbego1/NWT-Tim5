@@ -14,18 +14,20 @@ public class ArrangementsApplication {
 
     private static final Logger log = LoggerFactory.getLogger(ArrangementsApplication.class);
 
-//    public static void main(String[] args) {
-//        SpringApplication.run(ArrangementsApplication.class, args);
-//    }
-
     public static void main(String[] args) {
-        SpringApplication.run(ArrangementsApplication.class);
+        SpringApplication.run(ArrangementsApplication.class, args);
     }
+
+//    public static void main(String[] args) {
+//        SpringApplication.run(ArrangementsApplication.class);
+//    }
 
     @Bean
     public CommandLineRunner demo(ArrangementRepo repository) {
         return (args) -> {
-            // save a couple of customers
+            // save a couple of arrangements
+            repository.save(new Arrangement());
+            repository.save(new Arrangement());
             repository.save(new Arrangement());
 
             // fetch all customers

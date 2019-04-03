@@ -16,20 +16,22 @@ public class Arrangement {
 
     @ManyToOne
     @JoinColumn(name = "\"ArrangementTypeID\"")
-    private ArrangementType ArrangementTypeID;
+    public ArrangementType ArrangementTypeID;
 
 //    @ManyToOne
 //    @JoinColumn(name = "DestinationID")
-//    private AdditionalActivityType DestinationID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer DestinationID;
 
 //    @ManyToOne
 //    @JoinColumn(name = "TransportationID")
-//    private AdditionalActivityType TransportationID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer TransportationTypeID;
 
     @ManyToMany
     @JoinTable(
             name = "ArrangementAdditionalActivity",
             joinColumns = @JoinColumn(name = "ArrangementID"),
             inverseJoinColumns = @JoinColumn(name = "AdditionalActivityID"))
-    Set<AdditionalActivity> additionalActivities;
+    public Set<AdditionalActivity> additionalActivities;
 }
