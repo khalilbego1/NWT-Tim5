@@ -1,4 +1,4 @@
-package etf.unsa.ba.user_management.service;
+package etf.unsa.ba.user_management.service.assembler;
 
 import etf.unsa.ba.user_management.contoller.UserManagementController;
 import etf.unsa.ba.user_management.model.entity.UserEntity;

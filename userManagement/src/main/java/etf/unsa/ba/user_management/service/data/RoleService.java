@@ -1,4 +1,4 @@
-package etf.unsa.ba.user_management.service;
+package etf.unsa.ba.user_management.service.data;
 
 import etf.unsa.ba.user_management.model.entity.RoleEntity;
 import etf.unsa.ba.user_management.repository.RoleRepository;
@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RoleDataService {
+public class RoleService {
     private RoleRepository roleRepository;
 
     @Autowired
-    public RoleDataService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -23,22 +23,26 @@ public class RoleDataService {
         return null;
     }
 
-    public RoleEntity saveRole(RoleEntity role) {
+    public RoleEntity insert(RoleEntity role) {
         return roleRepository.save(role);
     }
 
-    List<RoleEntity> getAll() {
+    public RoleEntity update(RoleEntity role) {
+        return roleRepository.save(role);
+    }
+
+    public List<RoleEntity> getAll() {
         return roleRepository.findAll();
     }
 
-    RoleEntity getById(Integer Id) {
+    public RoleEntity getById(Integer Id) {
         if (roleRepository.findById(Id).isPresent()) {
             return roleRepository.findById(Id).get();
         }
         return null;
     }
 
-    void delete(RoleEntity role) {
+    public void delete(RoleEntity role) {
         roleRepository.deleteById(role.getId());
     }
 }
