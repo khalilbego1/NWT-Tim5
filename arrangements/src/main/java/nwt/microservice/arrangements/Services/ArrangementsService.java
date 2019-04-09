@@ -3,11 +3,14 @@ package nwt.microservice.arrangements.Services;
 import nwt.microservice.arrangements.Entities.Arrangement;
 import nwt.microservice.arrangements.Repositories.ArrangementRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Iterable;
 
+@Service
 public class ArrangementsService {
 
     @Autowired
@@ -18,10 +21,12 @@ public class ArrangementsService {
     }
 
     public ArrangementsService(ArrangementRepo arrangementRepo) {
+
         _arrangementRepo = arrangementRepo;
     }
 
     public Arrangement addArrangement(Arrangement arrangement){
+
         return _arrangementRepo.save(arrangement);
     }
 

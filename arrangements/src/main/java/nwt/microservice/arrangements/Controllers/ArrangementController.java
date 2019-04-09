@@ -14,25 +14,23 @@ import java.util.List;
 public class ArrangementController {
 
     @Autowired
-    private final ArrangementRepo _arrangementRepo;
+    private final ArrangementsService _arrangementService;
 
-    ArrangementController(ArrangementRepo arrangementRepo){
-        _arrangementRepo = arrangementRepo;
+    ArrangementController(ArrangementsService arrangementsService){
+        _arrangementService = arrangementsService;
     }
-
-    private ArrangementsService arrangementsService = new ArrangementsService();
 
 
 //    @GetMapping("/arrangements")
     List<Arrangement> all() {
-        return arrangementsService.findAll();
+        return _arrangementService.findAll();
     }
 
     @GetMapping("/arrangements")
     public List<Arrangement> findAll() {
         try {
 //            return getListFromIterator(_arrangementRepo.findAll());
-            return arrangementsService.findAll();
+            return _arrangementService.findAll();
         } catch (Exception handlerException) {
             System.out.println(handlerException.toString());
             return null;
@@ -53,18 +51,18 @@ public class ArrangementController {
 
     @PostMapping("/arrangement")
     Arrangement newArrangement(@RequestBody Arrangement newArrangement) {
-        return arrangementsService.addArrangement(newArrangement);
+        return _arrangementService.addArrangement(newArrangement);
     }
 
     @DeleteMapping("/arrangements/{id}")
     boolean removeArrangement(Integer arrangementId)
     {
-        return arrangementsService.removeArrangement(arrangementId);
+        return _arrangementService.removeArrangement(arrangementId);
     }
 
     @PutMapping("/arrangements/{id}")
     Arrangement replaceEmployee(@RequestBody Arrangement newArrangement, @PathVariable Integer id) {
-        return arrangementsService.upsertArrangement(newArrangement, id);
+        return _arrangementService.upsertArrangement(newArrangement, id);
     }
 
 
