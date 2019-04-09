@@ -7,22 +7,21 @@ import etf.unsa.ba.user_management.service.assembler.RoleResourceAssembler;
 import etf.unsa.ba.user_management.service.assembler.UserResourceAssembler;
 import etf.unsa.ba.user_management.service.data.RoleService;
 import etf.unsa.ba.user_management.service.data.UserService;
+import etf.unsa.ba.user_management.service.exception.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -39,6 +38,9 @@ public class UserManagementController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
+    private DiscoveryClient discoveryClient;
+
+    @Autowired
     public UserManagementController(UserService userService,
                                     UserResourceAssembler userResourceAssembler,
                                     RoleResourceAssembler roleResourceAssembler,
@@ -51,28 +53,18 @@ public class UserManagementController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginInput loginInput) {
         UserEntity foundUser = userService.getByUsername(loginInput.getUsername());
+        ApiError apiError = null;
         if (foundUser == null)
-            return new ResponseEntity<String>("Username or password are not correct", HttpStatus.UNAUTHORIZED);
+            apiError = new ApiError(HttpStatus.UNAUTHORIZED, "Login failed", "Username or password are not correct");
         else {
-            if (bCryptPasswordEncoder.matches(loginInput.getPassword(),foundUser.getPassword()))
-                return new ResponseEntity<String>("Login successful", HttpStatus.OK);
+            if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword())) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
-        return new ResponseEntity<String>("Username or password are not correct", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     @GetMapping("/users")
@@ -94,7 +86,8 @@ public class UserManagementController {
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
         if (userService.getByUsername(user.getUsername()) != null) {
-            return new ResponseEntity<>("User with the same username already exists", HttpStatus.CONFLICT);
+            ApiError apiError = new ApiError(HttpStatus.CONFLICT, "Registration failed", "User with the same username already exists");
+            new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
         }
         Resource<UserEntity> resource = userResourceAssembler.toResource(
                 userService.insert(user)

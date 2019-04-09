@@ -5,6 +5,7 @@ import etf.unsa.ba.user_management.validator.UniqueUsername;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -21,8 +22,10 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     @NotBlank(message = "{user.firstName.notBlank}")
+    @Pattern(regexp = "[A-Z]+[a-z]+", message = "{user.firstName.regex}")
     private String firstName;
     @NotBlank(message = "{user.lastName.notBlank}")
+    @Pattern(regexp = "[A-Z]+[a-z]+", message = "{user.lastName.regex}")
     private String lastName;
     @NotBlank(message = "{user.username.notBlank}")
     @Size(min = 6, max = 10, message = "{user.username.size}")
@@ -38,7 +41,7 @@ public class UserEntity {
     @JoinColumn(name = "roleId")
     private RoleEntity role;
     @NotBlank(message = "{user.email.notBlank}")
-    @Pattern(regexp = "[a-zA-Z0-9]+[._%+-]?[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\\.[A-Za-z]{2,4}", message = "{user.email.regex}")
+    @Email(message = "{user.email.regex}")
     private String email;
     @NotNull(message = "{user.dateOfBirth.notNull}")
     @Past(message = "{user.dateOfBirth.past}")
