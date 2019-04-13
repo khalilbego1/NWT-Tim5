@@ -1,6 +1,7 @@
 package etf.unsa.ba.user_management.model.entity;
 
 import etf.unsa.ba.user_management.validator.Adult;
+import etf.unsa.ba.user_management.validator.UniqueEmail;
 import etf.unsa.ba.user_management.validator.UniqueUsername;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +43,8 @@ public class UserEntity implements Serializable {
     private RoleEntity role;
     @NotBlank(message = "{user.email.notBlank}")
     @Email(message = "{user.email.regex}")
+    @UniqueEmail
+    @Column(unique = true, length = 100)
     private String email;
     @NotNull(message = "{user.dateOfBirth.notNull}")
     @Past(message = "{user.dateOfBirth.past}")
@@ -53,5 +56,3 @@ public class UserEntity implements Serializable {
         return String.format("%s %s (%s)", getFirstName(), getLastName(), getUsername());
     }
 }
-
-//TODO: email validator when email already exists (add findByEmail to repository)

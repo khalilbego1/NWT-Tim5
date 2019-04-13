@@ -31,12 +31,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserEntity getForLogin(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
-    }
-
     public UserEntity getByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public UserEntity getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public List<UserEntity> getUsersForRoleId(RoleEntity role) {
