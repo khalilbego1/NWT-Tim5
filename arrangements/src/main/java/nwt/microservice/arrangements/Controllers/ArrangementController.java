@@ -1,9 +1,7 @@
 package nwt.microservice.arrangements.Controllers;
 
 import nwt.microservice.arrangements.Entities.Arrangement;
-import nwt.microservice.arrangements.Repositories.ArrangementRepo;
 import nwt.microservice.arrangements.Services.ArrangementsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +11,15 @@ import java.util.List;
 @RestController
 public class ArrangementController {
 
-    @Autowired
     private final ArrangementsService _arrangementService;
 
-    ArrangementController(ArrangementsService arrangementsService){
+    @Autowired
+    ArrangementController(ArrangementsService arrangementsService) {
         _arrangementService = arrangementsService;
     }
 
 
-//    @GetMapping("/arrangements")
+    //    @GetMapping("/arrangements")
     List<Arrangement> all() {
         return _arrangementService.findAll();
     }
@@ -37,8 +35,7 @@ public class ArrangementController {
         }
     }
 
-    private <T> List<T> getListFromIterator(Iterable<T> iterator)
-    {
+    private <T> List<T> getListFromIterator(Iterable<T> iterator) {
         // Create an empty list
         List<T> list = new ArrayList<>();
 
@@ -55,8 +52,7 @@ public class ArrangementController {
     }
 
     @DeleteMapping("/arrangements/{id}")
-    boolean removeArrangement(Integer arrangementId)
-    {
+    boolean removeArrangement(Integer arrangementId) {
         return _arrangementService.removeArrangement(arrangementId);
     }
 

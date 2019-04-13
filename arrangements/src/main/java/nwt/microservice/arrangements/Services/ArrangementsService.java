@@ -3,34 +3,26 @@ package nwt.microservice.arrangements.Services;
 import nwt.microservice.arrangements.Entities.Arrangement;
 import nwt.microservice.arrangements.Repositories.ArrangementRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Iterable;
 
 @Service
 public class ArrangementsService {
 
+    private final ArrangementRepo _arrangementRepo;
+
     @Autowired
-    private ArrangementRepo _arrangementRepo;
-
-    public ArrangementsService(){
-
-    }
-
     public ArrangementsService(ArrangementRepo arrangementRepo) {
-
         _arrangementRepo = arrangementRepo;
     }
 
-    public Arrangement addArrangement(Arrangement arrangement){
-
+    public Arrangement addArrangement(Arrangement arrangement) {
         return _arrangementRepo.save(arrangement);
     }
 
-    public boolean removeArrangement(Integer id){
+    public boolean removeArrangement(Integer id) {
         try {
             _arrangementRepo.deleteById(id);
             return true;
@@ -40,7 +32,7 @@ public class ArrangementsService {
         }
     }
 
-    public Arrangement upsertArrangement(Arrangement newArrangement, Integer id){
+    public Arrangement upsertArrangement(Arrangement newArrangement, Integer id) {
         return _arrangementRepo.findById(id)
                 .map(arrangement -> {
                     arrangement.additionalActivities = newArrangement.additionalActivities;
@@ -61,8 +53,7 @@ public class ArrangementsService {
         }
     }
 
-    private <T> List<T> getListFromIterator(Iterable<T> iterator)
-    {
+    private <T> List<T> getListFromIterator(Iterable<T> iterator) {
 
         // Create an empty list
         List<T> list = new ArrayList<>();
