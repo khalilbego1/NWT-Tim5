@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+        <!--RABBIT-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <version>2.1.4.RELEASE</version>
+        </dependency>
+
         <!--EUREKA-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,6 +66,10 @@
         </dependency>
 
         <!--REST-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>

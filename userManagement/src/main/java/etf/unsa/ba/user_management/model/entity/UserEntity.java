@@ -5,11 +5,11 @@ import etf.unsa.ba.user_management.validator.UniqueUsername;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Users")
-public class UserEntity {
+public class UserEntity implements Serializable {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
@@ -47,4 +47,11 @@ public class UserEntity {
     @Past(message = "{user.dateOfBirth.past}")
     @Adult
     private LocalDate dateOfBirth;
+
+    @Override
+    public String toString() {
+        return String.format("%s %s (%s)", getFirstName(), getLastName(), getUsername());
+    }
 }
+
+//TODO: email validator when email already exists (add findByEmail to repository)

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Roles")
-public class RoleEntity {
+public class RoleEntity implements Serializable {
     public enum Type {
         ADMIN,
         PASSENGER,
@@ -33,4 +34,9 @@ public class RoleEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserEntity> users = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return String.format("%s", getType());
+    }
 }

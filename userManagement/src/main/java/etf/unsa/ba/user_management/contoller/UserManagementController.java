@@ -7,6 +7,7 @@ import etf.unsa.ba.user_management.service.assembler.RoleResourceAssembler;
 import etf.unsa.ba.user_management.service.assembler.UserResourceAssembler;
 import etf.unsa.ba.user_management.service.data.RoleService;
 import etf.unsa.ba.user_management.service.data.UserService;
+import etf.unsa.ba.user_management.service.event.Sender;
 import etf.unsa.ba.user_management.service.exception.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -29,13 +30,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @SuppressWarnings("ALL")
 @RestController
-@RequestMapping("/travelAgency")
+@RequestMapping("/userManagement")
 public class UserManagementController {
     private final UserService userService;
     private final UserResourceAssembler userResourceAssembler;
     private final RoleResourceAssembler roleResourceAssembler;
-    private RoleService roleDataService;
+    private final RoleService roleDataService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final Sender sender;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -45,12 +47,14 @@ public class UserManagementController {
                                     UserResourceAssembler userResourceAssembler,
                                     RoleResourceAssembler roleResourceAssembler,
                                     RoleService roleDataService,
-                                    BCryptPasswordEncoder bCryptPasswordEncoder) {
+                                    BCryptPasswordEncoder bCryptPasswordEncoder,
+                                    Sender sender) {
         this.userResourceAssembler = userResourceAssembler;
         this.roleResourceAssembler = roleResourceAssembler;
         this.userService = userService;
         this.roleDataService = roleDataService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.sender = sender;
     }
 
     @PostMapping("/login")
@@ -113,6 +117,7 @@ public class UserManagementController {
         UserEntity user = new UserEntity();
         user.setId(id);
         userService.delete(user);
+        sender.send("user.delete", Integer.toString(id) + ";delete");
 
         return ResponseEntity.noContent().build();
     }
