@@ -51,21 +51,37 @@ public class LocationController {
         Iterable<Country> countries =countryRepo.findAll();
         return countries;
     }
-    @PostMapping("/createDestination")
+    @PutMapping("/createDestination")
     public void createDestination(@RequestBody Destination destination)throws URISyntaxException {
         destinationRepo.save(destination);
     }
-    @PostMapping("/createCity")
+    @DeleteMapping("/deleteDestination")
+    public void deleteDestination(@PathVariable Integer id){
+        destinationRepo.deleteById(id);
+    }
+    @PutMapping("/createCity")
     public void createCity(@RequestBody City city)throws URISyntaxException {
         cityRepo.save(city);
     }
-    @PostMapping("/createRegion")
+    @DeleteMapping("/deleteCity")
+    public void deleteCity(@PathVariable Integer id){
+        cityRepo.deleteById(id);
+    }
+    @PutMapping("/createRegion")
     public void createRegion(@RequestBody Region region)throws URISyntaxException {
         regionRepo.save(region);
     }
-    @PostMapping("/createCountry")
+    @DeleteMapping("/deleteRegion")
+    public void deleteRegion(@PathVariable Integer id){
+        regionRepo.deleteById(id);
+    }
+    @PutMapping("/createCountry")
     public void createCountry(@RequestBody Country country)throws URISyntaxException {
         countryRepo.save(country);
+    }
+    @DeleteMapping("/deleteCountry")
+    public void deleteCountry(@PathVariable Integer id){
+        countryRepo.deleteById(id);
     }
 
 

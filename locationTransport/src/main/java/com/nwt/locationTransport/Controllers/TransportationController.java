@@ -28,14 +28,22 @@ public class TransportationController {
         Iterable<Transportation>transportation =transportationRepo.findAllByTransportationType(typeRepo.getById(id));
         return transportation;
     }
-    @PostMapping("/create")
+    @PutMapping ("/create")
     public void CreateTransport(@RequestBody Transportation transportation)throws URISyntaxException{
 
         transportationRepo.save(transportation);
     }
-    @PostMapping("/createType")
+    @PutMapping ("/createType")
     public void CreateTransportType(@RequestBody TransportationType type)throws URISyntaxException{
         typeRepo.save(type);
+    }
+    @DeleteMapping("/delete")
+    public void DeleteTransport(@PathVariable Integer id){
+        transportationRepo.deleteById(id);
+    }
+    @DeleteMapping("/delete")
+    public void DeleteTransportType(@PathVariable Integer id){
+        typeRepo.deleteById(id);
     }
 
 }
