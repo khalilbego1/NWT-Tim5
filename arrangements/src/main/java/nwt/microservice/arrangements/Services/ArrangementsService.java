@@ -4,6 +4,7 @@ import nwt.microservice.arrangements.Entities.Arrangement;
 import nwt.microservice.arrangements.Repositories.ArrangementRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,4 +65,23 @@ public class ArrangementsService {
         // Return the List
         return list;
     }
+
+    private String getUsers()
+    {
+        final String uri = "http://localhost:8080//userManagement/users";
+
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+        return result;
+    }
+
+    private String getLocations()
+    {
+        final String uri = "http://localhost:8080//location/getAll";
+
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+        return result;
+    }
+
 }
