@@ -10,7 +10,6 @@ import etf.unsa.ba.user_management.service.data.UserService;
 import etf.unsa.ba.user_management.service.event.Sender;
 import etf.unsa.ba.user_management.service.exception.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +29,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @SuppressWarnings("ALL")
 @RestController
-@RequestMapping("/userManagement")
+@RequestMapping("/travelAgency")
 public class UserManagementController {
     private final UserService userService;
     private final UserResourceAssembler userResourceAssembler;
@@ -38,9 +37,6 @@ public class UserManagementController {
     private final RoleService roleDataService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final Sender sender;
-
-    @Autowired
-    private DiscoveryClient discoveryClient;
 
     @Autowired
     public UserManagementController(UserService userService,
