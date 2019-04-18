@@ -35,6 +35,17 @@ public class ArrangementController {
         }
     }
 
+    @GetMapping("/arrangements/{id}")
+    public Arrangement findById(@PathVariable Integer id) {
+        try {
+            Arrangement arr = _arrangementService.findById(id);
+            return arr;
+        } catch (Exception handlerException) {
+            System.out.println(handlerException.toString());
+            return null;
+        }
+    }
+
     private <T> List<T> getListFromIterator(Iterable<T> iterator) {
         // Create an empty list
         List<T> list = new ArrayList<>();

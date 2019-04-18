@@ -84,4 +84,8 @@ public class ArrangementsService {
         return result;
     }
 
+    public Arrangement findById(Integer id) {
+        Long longId = Long.valueOf(id);
+        return _arrangementRepo.findById(id).get();
+    }
 }

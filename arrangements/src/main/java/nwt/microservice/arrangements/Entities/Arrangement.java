@@ -10,7 +10,7 @@ public class Arrangement {
     @Id
     @Column(name="ArrangementID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long ArrangementID;
+    Integer ArrangementID;
 
     public Arrangement(){
 
