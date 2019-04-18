@@ -66,6 +66,40 @@ public class UserManagementControllerTest {
         verifyNoMoreInteractions(userService);
     }
 
+    @Test
+    public void getOneExistingUserTest() throws Exception {
+        //given
+        when(userService.getById(1)).thenReturn(mockUser(1));
+
+        //when
+        mockMvc.perform(get("http://localhost:8080/travelAgency/users/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080/travelAgency/users/1")))
+                .andExpect(jsonPath("$._links.users.href", is("http://localhost:8080/travelAgency/users")));
+
+        //then
+        verify(userService, times(1)).getById(1);
+        verifyNoMoreInteractions(userService);
+    }
+
+    @Test
+    public void getOneNonExistingUserTest() throws Exception {
+        //given
+        when(userService.getById(1)).thenReturn(null);
+
+        //when
+        mockMvc.perform(get("http://localhost:8080/travelAgency/users/1"))
+                .andExpect(status().is(404))
+                .andExpect(jsonPath("$.status", is("NOT_FOUND")))
+                .andExpect(jsonPath("$.message", is("User not found")))
+                .andExpect(jsonPath("$.errors", hasSize(1)));
+
+        //then
+        verify(userService, times(1)).getById(1);
+        verifyNoMoreInteractions(userService);
+    }
+
     @NotNull
     private List<UserEntity> mockUsers() {
         return Arrays.asList(
