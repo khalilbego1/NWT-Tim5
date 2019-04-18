@@ -10,5 +10,5 @@ public class UserArrangement {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer UserArrangementId;
-    private Integer UserId;
+    private Integer userId;
 }

@@ -18,7 +18,7 @@ public class Receiver {
         processMessage(message);
     }
 
-    public void processMessage(String message) {
+    void processMessage(String message) {
         String[] niz = message.split(";");
         if (niz[1].equals("delete")) {
             userArrangementRepo.deleteByUserId(Integer.parseInt(niz[0]));
