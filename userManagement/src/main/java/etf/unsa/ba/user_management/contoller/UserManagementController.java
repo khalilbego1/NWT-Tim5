@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,15 +68,27 @@ public class UserManagementController {
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
+//    @GetMapping("/users")
+//    public Resources<Resource<UserEntity>> allUsers() {
+//        List<Resource<UserEntity>> users = userService.getAll()
+//                .stream()
+//                .map(userResourceAssembler::toResource)
+//                .collect(Collectors.toList());
+//        return new Resources<>(users,
+//                linkTo(methodOn(UserManagementController.class).allUsers()).withSelfRel());
+//    }
+
     @GetMapping("/users")
     public Resources<Resource<UserEntity>> allUsers() {
-        List<Resource<UserEntity>> users = userService.getAll()
-                .stream()
-                .map(userResourceAssembler::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(users,
+        List<Resource<UserEntity>> resources = new ArrayList<>();
+        List<UserEntity> users = userService.getAll();
+        for (int i = 0; i < users.size(); ++i) {
+            resources.add(userResourceAssembler.toResource(users.get(i)));
+        }
+        return new Resources<>(resources,
                 linkTo(methodOn(UserManagementController.class).allUsers()).withSelfRel());
     }
+
 
     @GetMapping("/users/{id}")
     public Resource<UserEntity> oneUser(@PathVariable int id) {
