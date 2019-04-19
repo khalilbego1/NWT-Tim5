@@ -58,10 +58,10 @@ public class UserManagementController {
         UserEntity foundUser = userService.getByUsername(loginInput.getUsername());
         ApiError apiError = null;
         if (foundUser == null)
-            apiError = new ApiError(HttpStatus.UNAUTHORIZED, "Login failed", "Username or password are not correct");
+            apiError = new ApiError("Login failed", "Username or password are not correct");
         else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword()))
             return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/users")
@@ -78,7 +78,7 @@ public class UserManagementController {
     public ResponseEntity<?> oneUser(@PathVariable int id) {
         UserEntity found = userService.getById(id);
         if (found == null)
-            return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, "User not found", "User with id " + id + " doesn't exist"),
+            return new ResponseEntity<>(new ApiError("User not found", "User with id " + id + " doesn't exist"),
                     new HttpHeaders(),
                     HttpStatus.NOT_FOUND
             );
@@ -88,8 +88,8 @@ public class UserManagementController {
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
         if (userService.getByUsername(user.getUsername()) != null) {
-            ApiError apiError = new ApiError(HttpStatus.CONFLICT, "Registration failed", "User with the same username already exists");
-            new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+            ApiError apiError = new ApiError("Registration failed", "User with the same username already exists");
+            new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.CONFLICT);
         }
         Resource<UserEntity> resource = userResourceAssembler.toResource(userService.insert(user));
         return ResponseEntity
@@ -112,7 +112,7 @@ public class UserManagementController {
     public ResponseEntity<?> deleteUser(@PathVariable int id) {
         UserEntity found = userService.getById(id);
         if (found == null) {
-            return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, "User not found", "User with id " + id + " doesn't exist"),
+            return new ResponseEntity<>(new ApiError("User not found", "User with id " + id + " doesn't exist"),
                     new HttpHeaders(),
                     HttpStatus.NOT_FOUND
             );
@@ -137,7 +137,7 @@ public class UserManagementController {
     public ResponseEntity<?> oneRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);
         if (found == null) {
-            return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, "Role not found", "Role with id " + id + " doesn't exist"),
+            return new ResponseEntity<>(new ApiError("Role not found", "Role with id " + id + " doesn't exist"),
                     new HttpHeaders(),
                     HttpStatus.NOT_FOUND
             );
@@ -181,7 +181,7 @@ public class UserManagementController {
     public ResponseEntity<?> deleteRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);
         if (found == null) {
-            return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, "Role not found", "Role with id " + id + " doesn't exist"),
+            return new ResponseEntity<>(new ApiError("Role not found", "Role with id " + id + " doesn't exist"),
                     new HttpHeaders(),
                     HttpStatus.NOT_FOUND
             );

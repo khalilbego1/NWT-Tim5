@@ -1,9 +1,7 @@
 package etf.unsa.ba.user_management.controller;
 
-import etf.unsa.ba.user_management.contoller.UserManagementController;
 import etf.unsa.ba.user_management.model.entity.RoleEntity;
 import etf.unsa.ba.user_management.model.entity.UserEntity;
-import etf.unsa.ba.user_management.service.assembler.UserResourceAssembler;
 import etf.unsa.ba.user_management.service.data.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,12 +30,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserManagementControllerTest {
-    @Autowired
-    private UserManagementController userManagementController;
     @MockBean
     private UserService userService;
-    @Autowired
-    private UserResourceAssembler userResourceAssembler;
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -75,6 +69,13 @@ public class UserManagementControllerTest {
         mockMvc.perform(get("http://localhost:8080/travelAgency/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.firstName", is("Lejla")))
+                .andExpect(jsonPath("$.lastName", is("Solak")))
+                .andExpect(jsonPath("$.username", is("lsolak1")))
+                .andExpect(jsonPath("$.password", is("Password1")))
+                .andExpect(jsonPath("$.email", is("lsolak1@etf.unsa.ba")))
+                .andExpect(jsonPath("$.role.id", is(1)))
+                .andExpect(jsonPath("$.role.type", is("ADMIN")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080/travelAgency/users/1")))
                 .andExpect(jsonPath("$._links.users.href", is("http://localhost:8080/travelAgency/users")));
 
@@ -91,7 +92,6 @@ public class UserManagementControllerTest {
         //when
         mockMvc.perform(get("http://localhost:8080/travelAgency/users/1"))
                 .andExpect(status().is(404))
-                .andExpect(jsonPath("$.status", is("NOT_FOUND")))
                 .andExpect(jsonPath("$.message", is("User not found")))
                 .andExpect(jsonPath("$.errors", hasSize(1)));
 
