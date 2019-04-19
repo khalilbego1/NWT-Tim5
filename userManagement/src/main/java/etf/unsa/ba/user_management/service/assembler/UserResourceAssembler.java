@@ -14,7 +14,6 @@ public class UserResourceAssembler implements ResourceAssembler<UserEntity, Reso
 
     @Override
     public Resource<UserEntity> toResource(UserEntity user) {
-
         return new Resource<>(user,
                 linkTo(methodOn(UserManagementController.class).oneUser(user.getId())).withSelfRel(),
                 linkTo(methodOn(UserManagementController.class).allUsers()).withRel("users"));

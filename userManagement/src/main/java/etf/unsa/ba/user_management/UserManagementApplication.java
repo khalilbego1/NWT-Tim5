@@ -27,7 +27,7 @@ public class UserManagementApplication {
     @Bean
     public CommandLineRunner insertData(UserRepository userRepository, RoleRepository roleRepository) {
         return (args) -> {
-            roleRepository.save(new RoleEntity(0, RoleEntity.Type.PASSENGER, "User with admin privileges", null));
+            roleRepository.save(new RoleEntity(0, RoleEntity.Type.PASSENGER, null, null));
             roleRepository.save(new RoleEntity(0, RoleEntity.Type.EMPLOYEE, null, null));
 
             List<RoleEntity> roleEntities = roleRepository.findAll();
@@ -37,12 +37,11 @@ public class UserManagementApplication {
                         "Solak",
                         "lsolak" + i,
                         "password123",
-                        roleEntities.get(i),
                         "lsolak" + i + "@etf.unsa.ba",
-                        LocalDate.of(1996, 9, 15))
-                );
+                        LocalDate.of(1996, 9, 15),
+                        roleEntities.get(i)
+                ));
             }
         };
     }
 }
-

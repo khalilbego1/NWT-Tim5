@@ -16,13 +16,6 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public RoleEntity getRoleById(Integer Id) {
-        if (roleRepository.findById(Id).isPresent()) {
-            return roleRepository.findById(Id).get();
-        }
-        return null;
-    }
-
     public RoleEntity insert(RoleEntity role) {
         return roleRepository.save(role);
     }
@@ -36,9 +29,8 @@ public class RoleService {
     }
 
     public RoleEntity getById(Integer Id) {
-        if (roleRepository.findById(Id).isPresent()) {
+        if (roleRepository.findById(Id).isPresent())
             return roleRepository.findById(Id).get();
-        }
         return null;
     }
 
