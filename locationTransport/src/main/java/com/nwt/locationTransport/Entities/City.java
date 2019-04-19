@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "CITIES")
 public class City {
+    public City(){}
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

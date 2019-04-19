@@ -6,12 +6,11 @@ import com.nwt.locationTransport.Repositories.TransportationRepo;
 import com.nwt.locationTransport.Repositories.TransportationTypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.rmi.transport.Transport;
 
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping ("/transport")
+@RequestMapping("/transport")
 public class TransportationController {
     @Autowired
     private TransportationRepo transportationRepo;
@@ -19,30 +18,35 @@ public class TransportationController {
     private TransportationTypeRepo typeRepo;
 
     @GetMapping("/getAll")
-    public Iterable<Transportation>getAllTransportation(){
-        Iterable<Transportation> transportation =transportationRepo.findAll();
+    public Iterable<Transportation> getAllTransportation() {
+        Iterable<Transportation> transportation = transportationRepo.findAll();
         return transportation;
     }
+
     @GetMapping("/getAllOfType")
-    public Iterable<Transportation>getAllTransportationofType(@PathVariable Integer id){
-        Iterable<Transportation>transportation =transportationRepo.findAllByTransportationType(typeRepo.getById(id));
+    public Iterable<Transportation> getAllTransportationofType(@PathVariable Integer id) {
+        Iterable<Transportation> transportation = transportationRepo.findAllByTransportationType(typeRepo.getById(id));
         return transportation;
     }
-    @PutMapping ("/create")
-    public void CreateTransport(@RequestBody Transportation transportation)throws URISyntaxException{
+
+    @PutMapping("/create")
+    public void CreateTransport(@RequestBody Transportation transportation) throws URISyntaxException {
 
         transportationRepo.save(transportation);
     }
-    @PutMapping ("/createType")
-    public void CreateTransportType(@RequestBody TransportationType type)throws URISyntaxException{
+
+    @PutMapping("/createType")
+    public void CreateTransportType(@RequestBody TransportationType type) throws URISyntaxException {
         typeRepo.save(type);
     }
-    @DeleteMapping("/delete")
-    public void DeleteTransport(@PathVariable Integer id){
+
+    @DeleteMapping("/delete/{id}")
+    public void DeleteTransport(@PathVariable Integer id) {
         transportationRepo.deleteById(id);
     }
-    @DeleteMapping("/delete")
-    public void DeleteTransportType(@PathVariable Integer id){
+
+    @DeleteMapping("/delete/type/{id}")
+    public void DeleteTransportType(@PathVariable Integer id) {
         typeRepo.deleteById(id);
     }
 

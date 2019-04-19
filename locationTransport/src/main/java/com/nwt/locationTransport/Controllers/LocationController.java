@@ -68,7 +68,7 @@ public class LocationController {
     public void createDestination(@RequestBody Destination destination)throws URISyntaxException {
         destinationRepo.save(destination);
     }
-    @DeleteMapping("/deleteDestination")
+    @DeleteMapping("/deleteDestination/{id}")
     public void deleteDestination(@PathVariable Integer id){
         destinationRepo.deleteById(id);
         sender.send("location.delete",Integer.toString(id) + ";delete");
