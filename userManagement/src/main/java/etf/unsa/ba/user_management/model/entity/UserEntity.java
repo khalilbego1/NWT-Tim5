@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -18,38 +17,45 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Users")
-public class UserEntity implements Serializable {
-    @javax.persistence.Id
+public class UserEntity {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+
     @NotBlank(message = "{user.firstName.notBlank}")
     @Pattern(regexp = "[A-Z]+[a-z]+", message = "{user.firstName.regex}")
     private String firstName;
+
     @NotBlank(message = "{user.lastName.notBlank}")
     @Pattern(regexp = "[A-Z]+[a-z]+", message = "{user.lastName.regex}")
     private String lastName;
+
     @NotBlank(message = "{user.username.notBlank}")
     @Size(min = 6, max = 10, message = "{user.username.size}")
     @UniqueUsername
     @Column(unique = true, length = 50)
     private String username;
+
     @NotBlank(message = "{user.password.notBlank}")
     @Size(min = 8, message = "{user.password.size}")
     private String password;
-    @Valid
-    @NotNull(message = "{user.role.notNull}")
-    @ManyToOne
-    @JoinColumn(name = "roleId")
-    private RoleEntity role;
+
     @NotBlank(message = "{user.email.notBlank}")
     @Email(message = "{user.email.regex}")
     @UniqueEmail
     @Column(unique = true, length = 100)
     private String email;
+
     @NotNull(message = "{user.dateOfBirth.notNull}")
     @Past(message = "{user.dateOfBirth.past}")
     @Adult
     private LocalDate dateOfBirth;
+
+    @Valid
+    @NotNull(message = "{user.role.notNull}")
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private RoleEntity role;
 
     @Override
     public String toString() {

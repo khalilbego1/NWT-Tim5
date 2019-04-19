@@ -12,7 +12,6 @@ import etf.unsa.ba.user_management.service.exception.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -61,7 +60,7 @@ public class UserManagementController {
             apiError = new ApiError("Login failed", "Username or password are not correct");
         else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword()))
             return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/users")
@@ -79,17 +78,15 @@ public class UserManagementController {
         UserEntity found = userService.getById(id);
         if (found == null)
             return new ResponseEntity<>(new ApiError("User not found", "User with id " + id + " doesn't exist"),
-                    new HttpHeaders(),
-                    HttpStatus.NOT_FOUND
-            );
+                    HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(userResourceAssembler.toResource(found), HttpStatus.OK);
     }
 
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
         if (userService.getByUsername(user.getUsername()) != null) {
-            ApiError apiError = new ApiError("Registration failed", "User with the same username already exists");
-            new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.CONFLICT);
+            new ResponseEntity<>(new ApiError("Registration failed", "User with the same username already exists"),
+                    HttpStatus.CONFLICT);
         }
         Resource<UserEntity> resource = userResourceAssembler.toResource(userService.insert(user));
         return ResponseEntity
@@ -100,9 +97,7 @@ public class UserManagementController {
     @PutMapping("/users/{id}")
     public ResponseEntity<?> editUser(@Valid @RequestBody UserEntity user, @PathVariable int id) throws URISyntaxException {
         user.setId(id);
-        Resource<UserEntity> resource = userResourceAssembler.toResource(
-                userService.update(user)
-        );
+        Resource<UserEntity> resource = userResourceAssembler.toResource(userService.update(user));
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
@@ -113,9 +108,7 @@ public class UserManagementController {
         UserEntity found = userService.getById(id);
         if (found == null) {
             return new ResponseEntity<>(new ApiError("User not found", "User with id " + id + " doesn't exist"),
-                    new HttpHeaders(),
-                    HttpStatus.NOT_FOUND
-            );
+                    HttpStatus.NOT_FOUND);
         } else {
             userService.delete(found);
             sender.send("user.delete", Integer.toString(id) + ";delete");
@@ -136,12 +129,9 @@ public class UserManagementController {
     @GetMapping("/roles/{id}")
     public ResponseEntity<?> oneRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);
-        if (found == null) {
+        if (found == null)
             return new ResponseEntity<>(new ApiError("Role not found", "Role with id " + id + " doesn't exist"),
-                    new HttpHeaders(),
-                    HttpStatus.NOT_FOUND
-            );
-        }
+                    HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(roleResourceAssembler.toResource(found), HttpStatus.OK);
     }
 
@@ -158,9 +148,7 @@ public class UserManagementController {
 
     @PostMapping("/roles")
     public ResponseEntity<?> addRole(@Valid @RequestBody RoleEntity role) throws URISyntaxException {
-        Resource<RoleEntity> resource = roleResourceAssembler.toResource(
-                roleService.insert(role)
-        );
+        Resource<RoleEntity> resource = roleResourceAssembler.toResource(roleService.insert(role));
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
@@ -169,9 +157,7 @@ public class UserManagementController {
     @PutMapping("/roles/{id}")
     public ResponseEntity<?> editRole(@Valid @RequestBody RoleEntity role, @PathVariable int id) throws URISyntaxException {
         role.setId(id);
-        Resource<RoleEntity> resource = roleResourceAssembler.toResource(
-                roleService.update(role)
-        );
+        Resource<RoleEntity> resource = roleResourceAssembler.toResource(roleService.update(role));
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
@@ -180,14 +166,10 @@ public class UserManagementController {
     @DeleteMapping("/roles/{id}")
     public ResponseEntity<?> deleteRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);
-        if (found == null) {
+        if (found == null)
             return new ResponseEntity<>(new ApiError("Role not found", "Role with id " + id + " doesn't exist"),
-                    new HttpHeaders(),
-                    HttpStatus.NOT_FOUND
-            );
-        } else {
-            roleService.delete(found);
-        }
+                    HttpStatus.NOT_FOUND);
+        else roleService.delete(found);
         return ResponseEntity.noContent().build();
     }
 }

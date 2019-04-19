@@ -34,7 +34,6 @@ public class UserManagementControllerTest {
     private UserService userService;
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     private MockMvc mockMvc;
 
     @Before
@@ -74,6 +73,7 @@ public class UserManagementControllerTest {
                 .andExpect(jsonPath("$.username", is("lsolak1")))
                 .andExpect(jsonPath("$.password", is("Password1")))
                 .andExpect(jsonPath("$.email", is("lsolak1@etf.unsa.ba")))
+                .andExpect(jsonPath("$.dateOfBirth", is("1996-09-15")))
                 .andExpect(jsonPath("$.role.id", is(1)))
                 .andExpect(jsonPath("$.role.type", is("ADMIN")))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080/travelAgency/users/1")))
@@ -102,18 +102,19 @@ public class UserManagementControllerTest {
 
     @NotNull
     private List<UserEntity> mockUsers() {
-        return Arrays.asList(
-                mockUser(1),
-                mockUser(2)
-        );
+        return Arrays.asList(mockUser(1), mockUser(2));
     }
 
     @NotNull
     private UserEntity mockUser(int id) {
-        return new UserEntity(
-                id, "Lejla", "Solak", "lsolak" + id, "Password" + id,
-                new RoleEntity(id, RoleEntity.Type.ADMIN, null, new HashSet<>()),
-                "lsolak" + id + "@etf.unsa.ba", LocalDate.of(1996, 9, 15)
+        return new UserEntity(id,
+                "Lejla",
+                "Solak",
+                "lsolak" + id,
+                "Password" + id,
+                "lsolak" + id + "@etf.unsa.ba",
+                LocalDate.of(1996, 9, 15),
+                new RoleEntity(id, RoleEntity.Type.ADMIN, null, new HashSet<>())
         );
     }
 }

@@ -13,7 +13,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class RoleResourceAssembler implements ResourceAssembler<RoleEntity, Resource<RoleEntity>> {
     @Override
     public Resource<RoleEntity> toResource(RoleEntity role) {
-
         return new Resource<>(role,
                 linkTo(methodOn(UserManagementController.class).oneRole(role.getId())).withSelfRel(),
                 linkTo(methodOn(UserManagementController.class).usersForRole(role.getId())).withRel("users"),

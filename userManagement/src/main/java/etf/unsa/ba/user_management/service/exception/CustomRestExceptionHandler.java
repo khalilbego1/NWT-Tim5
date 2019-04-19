@@ -27,8 +27,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                     String errorMessage = error.getDefaultMessage();
                     errors.add(fieldName + ": " + errorMessage);
                 });
-
         ApiError apiError = new ApiError(ex.getLocalizedMessage(), errors);
-        return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiError, headers, status);
     }
 }

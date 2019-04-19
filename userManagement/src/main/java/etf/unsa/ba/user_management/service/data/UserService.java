@@ -21,9 +21,8 @@ public class UserService {
     }
 
     public UserEntity getById(Integer Id) {
-        if (userRepository.findById(Id).isPresent()) {
+        if (userRepository.findById(Id).isPresent())
             return userRepository.findById(Id).get();
-        }
         return null;
     }
 
