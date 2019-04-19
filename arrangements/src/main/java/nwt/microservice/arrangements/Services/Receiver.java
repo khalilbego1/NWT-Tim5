@@ -18,7 +18,7 @@ public class Receiver {
 
     public void receiveMessage1(String message) {
         System.out.println("Received <" + message + ">");
-        processMessage(message);
+        processMessage1(message);
     }
 
     public void receiveMessage2(String message) {
@@ -26,14 +26,10 @@ public class Receiver {
     }
 
 
-    void processMessage(String message) {
+    void processMessage1(String message) {
         String[] niz = message.split(";");
-        if () {
-            if (niz[1].equals("delete")) {
-                userArrangementRepo.deleteByUserId(Integer.parseInt(niz[0]));
-            }
-        } else {
-            arrangementRepo.deleteByDestinationID();
+        if (niz[1].equals("delete")) {
+            userArrangementRepo.deleteByUserId(Integer.parseInt(niz[0]));
         }
     }
 }
