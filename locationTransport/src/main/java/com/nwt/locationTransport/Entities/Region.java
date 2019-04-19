@@ -1,6 +1,10 @@
 package com.nwt.locationTransport.Entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,9 +14,13 @@ public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column (name = "NAME")
+    @NotBlank(message = "{city.name.notBlank}")
+    @Size(min =2, max = 25, message = "{city.name.size}")
+    @Column (name = "NAME",nullable = false)
+    @NotNull
     private String name;
 
+    @Valid
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;

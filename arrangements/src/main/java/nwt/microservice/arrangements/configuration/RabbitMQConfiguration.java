@@ -1,7 +1,10 @@
 package nwt.microservice.arrangements.configuration;
 
 import nwt.microservice.arrangements.Services.Receiver;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -11,7 +14,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
-    private static final String LISTENER_METHOD = "receiveMessage";
+    private static final String LISTENER_METHOD1 = "receiveMessage1";
+    private static final String LISTENER_METHOD2 = "receiveMessage2";
     private final String userQueueName = "user-queue";
     private final String locationQueueName = "location-queue";
     @Value("${fanout.exchange1}")
@@ -48,11 +52,12 @@ public class RabbitMQConfiguration {
 
     @Bean
     MessageListenerAdapter listenerAdapter1(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, LISTENER_METHOD);
+        return new MessageListenerAdapter(receiver, LISTENER_METHOD1);
     }
+
     @Bean
     Queue queue2() {
-        return new Queue(userQueueName, true);
+        return new Queue(locationQueueName, true);
     }
 
     @Bean
@@ -72,14 +77,14 @@ public class RabbitMQConfiguration {
                                               MessageListenerAdapter listenerAdapter2) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(userQueueName);
+        container.setQueueNames(locationQueueName);
         container.setMessageListener(listenerAdapter2);
         return container;
     }
 
     @Bean
     MessageListenerAdapter listenerAdapter2(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, LISTENER_METHOD);
+        return new MessageListenerAdapter(receiver, LISTENER_METHOD2);
     }
 
 }
