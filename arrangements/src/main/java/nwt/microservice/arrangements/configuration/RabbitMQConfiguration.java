@@ -62,7 +62,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     FanoutExchange exchange2() {
-        return new FanoutExchange(fanoutExchange1);
+        return new FanoutExchange(fanoutExchange2);
     }
 
     @Bean

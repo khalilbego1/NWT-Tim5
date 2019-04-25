@@ -26,4 +26,6 @@ public class Transportation {
         this.name = name;
         this.transportationType = transportationType;
     }
+    public Transportation() {
+    }
 }

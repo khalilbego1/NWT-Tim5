@@ -32,4 +32,6 @@ public class Region {
         this.name = name;
         this.country = country;
     }
+    public Region() {
+    }
 }

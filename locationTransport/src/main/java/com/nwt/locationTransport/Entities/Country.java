@@ -5,7 +5,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
 @Entity
 @Table(name = "COUNTRIES")
 public class Country {
@@ -22,5 +27,7 @@ public class Country {
 
     public Country(String name) {
         this.name = name;
+    }
+    public Country() {
     }
 }
