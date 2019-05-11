@@ -3,8 +3,8 @@ services:
   eureka-server:
     container_name: eureka-server
     build:
-      context: .
-      dockerfile: eureka-server/Dockerfile
+      context: eureka-server
+      dockerfile: Dockerfile
     image: lsolak1996/eureka-server:0.0.1-SNAPSHOT
     expose:
       - 8761
@@ -15,8 +15,8 @@ services:
   user-management:
     container_name: user-management
     build:
-      context: .
-      dockerfile: userManagement/Dockerfile
+      context: userManagement
+      dockerfile: Dockerfile
     image: lsolak1996/user-management:0.0.1-SNAPSHOT
     entrypoint: /opt/bin/UserManagement-entrypoint.sh
     expose:
@@ -34,8 +34,8 @@ services:
   location-transport:
     container_name: location-transport
     build:
-      context: .
-      dockerfile: locationTransport/Dockerfile
+      context: locationTransport
+      dockerfile: Dockerfile
     image: lsolak1996/location-transport:0.0.1-SNAPSHOT
     entrypoint: /opt/bin/LocationTransport-entrypoint.sh
     expose:
@@ -53,8 +53,8 @@ services:
   arrangements:
     container_name: arrangements
     build:
-      context: .
-      dockerfile: arrangements/Dockerfile
+      context: arrangements
+      dockerfile: Dockerfile
     image: lsolak1996/arrangements:0.0.1-SNAPSHOT
     entrypoint: /opt/bin/Arrangements-entrypoint.sh
     expose:
@@ -72,8 +72,8 @@ services:
   api-gateway:
     container_name: api-gateway
     build:
-      context: .
-      dockerfile: api-gateway/Dockerfile
+      context: api-gateway
+      dockerfile: Dockerfile
     image: lsolak1996/api-gateway:0.0.1-SNAPSHOT
     expose:
       - 8585
