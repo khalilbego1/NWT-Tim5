@@ -20,4 +20,7 @@ public class TransportationType {
     public TransportationType(String name) {
         this.name = name;
     }
+    public TransportationType() {
+        this.name = name;
+    }
 }
