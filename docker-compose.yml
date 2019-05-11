@@ -1,0 +1,92 @@
+version: '2.2'
+services:
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    image: lsolak1996/eureka-server:0.0.1-SNAPSHOT
+    expose:
+      - 8761
+    ports:
+      - 8761:8761
+    networks:
+      - emp-network
+  user-management:
+    container_name: user-management
+    build:
+      context: .
+      dockerfile: userManagement/Dockerfile
+    image: lsolak1996/user-management:0.0.1-SNAPSHOT
+    entrypoint: /opt/bin/UserManagement-entrypoint.sh
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+    logging:
+      driver: json-file
+  location-transport:
+    container_name: location-transport
+    build:
+      context: .
+      dockerfile: locationTransport/Dockerfile
+    image: lsolak1996/location-transport:0.0.1-SNAPSHOT
+    entrypoint: /opt/bin/LocationTransport-entrypoint.sh
+    expose:
+      - 8050
+    ports:
+      - 8050:8050
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+    logging:
+      driver: json-file
+  arrangements:
+    container_name: arrangements
+    build:
+      context: .
+      dockerfile: arrangements/Dockerfile
+    image: lsolak1996/arrangements:0.0.1-SNAPSHOT
+    entrypoint: /opt/bin/Arrangements-entrypoint.sh
+    expose:
+      - 9000
+    ports:
+      - 9000:9000
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+    logging:
+      driver: json-file
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    image: lsolak1996/api-gateway:0.0.1-SNAPSHOT
+    expose:
+      - 8585
+    ports:
+      - 8585:8585
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+    logging:
+      driver: json-file
+networks:
+  emp-network:
+    driver: bridge
