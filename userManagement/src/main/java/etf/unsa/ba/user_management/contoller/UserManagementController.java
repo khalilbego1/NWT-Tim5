@@ -28,7 +28,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @SuppressWarnings("ALL")
 @RestController
-@RequestMapping("/travelAgency")
 public class UserManagementController {
     private final UserService userService;
     private final UserResourceAssembler userResourceAssembler;
