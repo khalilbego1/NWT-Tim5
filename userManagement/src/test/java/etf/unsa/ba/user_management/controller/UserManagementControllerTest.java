@@ -30,6 +30,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserManagementControllerTest {
+    private static final String URL_TEMPLATE_USERS = "http://localhost:8000/users";
+    private static final String URL_TEMPLATE_USER = "http://localhost:8000/users/1";
     @MockBean
     private UserService userService;
     @Autowired
@@ -47,12 +49,12 @@ public class UserManagementControllerTest {
         when(userService.getAll()).thenReturn(mockUsers());
 
         //when
-        mockMvc.perform(get("http://localhost:8080/travelAgency/users"))
+        mockMvc.perform(get(URL_TEMPLATE_USERS))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.userEntities", hasSize(2)))
                 .andExpect(jsonPath("$._embedded.userEntities[0].id", is(1)))
                 .andExpect(jsonPath("$._embedded.userEntities[1].id", is(2)))
-                .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080/travelAgency/users")));
+                .andExpect(jsonPath("$._links.self.href", is(URL_TEMPLATE_USERS)));
 
         //then
         verify(userService, times(1)).getAll();
@@ -65,7 +67,7 @@ public class UserManagementControllerTest {
         when(userService.getById(1)).thenReturn(mockUser(1));
 
         //when
-        mockMvc.perform(get("http://localhost:8080/travelAgency/users/1"))
+        mockMvc.perform(get(URL_TEMPLATE_USER))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.firstName", is("Lejla")))
@@ -76,8 +78,8 @@ public class UserManagementControllerTest {
                 .andExpect(jsonPath("$.dateOfBirth", is("1996-09-15")))
                 .andExpect(jsonPath("$.role.id", is(1)))
                 .andExpect(jsonPath("$.role.type", is("ADMIN")))
-                .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080/travelAgency/users/1")))
-                .andExpect(jsonPath("$._links.users.href", is("http://localhost:8080/travelAgency/users")));
+                .andExpect(jsonPath("$._links.self.href", is(URL_TEMPLATE_USER)))
+                .andExpect(jsonPath("$._links.users.href", is(URL_TEMPLATE_USERS)));
 
         //then
         verify(userService, times(1)).getById(1);
@@ -90,7 +92,7 @@ public class UserManagementControllerTest {
         when(userService.getById(1)).thenReturn(null);
 
         //when
-        mockMvc.perform(get("http://localhost:8080/travelAgency/users/1"))
+        mockMvc.perform(get(URL_TEMPLATE_USER))
                 .andExpect(status().is(404))
                 .andExpect(jsonPath("$.message", is("User not found")))
                 .andExpect(jsonPath("$.errors", hasSize(1)));
