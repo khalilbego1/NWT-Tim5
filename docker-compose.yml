@@ -17,6 +17,10 @@ services:
     build:
       context: userManagement
       dockerfile: Dockerfile
+      args:
+        dburl: 'jdbc:mysql://10.0.75.1:3306/usermanagementdb?characterEncoding=UTF-8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+        dbuser: 'lsolak'
+        dbpass: 'lsolak123'
     image: lsolak1996/user-management:0.0.1-SNAPSHOT
     entrypoint: /opt/UserManagement-entrypoint.sh
     expose:
@@ -36,6 +40,10 @@ services:
     build:
       context: locationTransport
       dockerfile: Dockerfile
+      args:
+        dburl: 'jdbc:mysql://10.0.75.1:3306/locationdb?characterEncoding=UTF-8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+        dbuser: 'lsolak'
+        dbpass: 'lsolak123'
     image: lsolak1996/location-transport:0.0.1-SNAPSHOT
     entrypoint: /opt/LocationTransport-entrypoint.sh
     expose:
@@ -55,6 +63,10 @@ services:
     build:
       context: arrangements
       dockerfile: Dockerfile
+      args:
+        dburl: 'jdbc:mysql://10.0.75.1:3306/arrangementsdb?characterEncoding=UTF-8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+        dbuser: 'lsolak'
+        dbpass: 'lsolak123'
     image: lsolak1996/arrangements:0.0.1-SNAPSHOT
     entrypoint: /opt/Arrangements-entrypoint.sh
     expose:
