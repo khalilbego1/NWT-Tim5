@@ -18,7 +18,7 @@ services:
       context: userManagement
       dockerfile: Dockerfile
     image: lsolak1996/user-management:0.0.1-SNAPSHOT
-    entrypoint: /opt/bin/UserManagement-entrypoint.sh
+    entrypoint: /opt/UserManagement-entrypoint.sh
     expose:
       - 8000
     ports:
@@ -37,7 +37,7 @@ services:
       context: locationTransport
       dockerfile: Dockerfile
     image: lsolak1996/location-transport:0.0.1-SNAPSHOT
-    entrypoint: /opt/bin/LocationTransport-entrypoint.sh
+    entrypoint: /opt/LocationTransport-entrypoint.sh
     expose:
       - 8050
     ports:
@@ -56,7 +56,7 @@ services:
       context: arrangements
       dockerfile: Dockerfile
     image: lsolak1996/arrangements:0.0.1-SNAPSHOT
-    entrypoint: /opt/bin/Arrangements-entrypoint.sh
+    entrypoint: /opt/Arrangements-entrypoint.sh
     expose:
       - 9000
     ports:
