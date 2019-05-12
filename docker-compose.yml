@@ -22,6 +22,7 @@ services:
         dbuser: 'lsolak'
         dbpass: 'lsolak123'
         rabbithost: '10.0.75.1'
+        eureka: 'http://10.0.75.1:8761/eureka'
     image: lsolak1996/user-management:0.0.1-SNAPSHOT
     entrypoint: /opt/UserManagement-entrypoint.sh
     expose:
@@ -46,6 +47,7 @@ services:
         dbuser: 'lsolak'
         dbpass: 'lsolak123'
         rabbithost: '10.0.75.1'
+        eureka: 'http://10.0.75.1:8761/eureka'
     image: lsolak1996/location-transport:0.0.1-SNAPSHOT
     entrypoint: /opt/LocationTransport-entrypoint.sh
     expose:
@@ -70,6 +72,7 @@ services:
         dbuser: 'lsolak'
         dbpass: 'lsolak123'
         rabbithost: '10.0.75.1'
+        eureka: 'http://10.0.75.1:8761/eureka'
     image: lsolak1996/arrangements:0.0.1-SNAPSHOT
     entrypoint: /opt/Arrangements-entrypoint.sh
     expose:
@@ -89,6 +92,8 @@ services:
     build:
       context: api-gateway
       dockerfile: Dockerfile
+      args:
+        eureka: 'http://10.0.75.1:8761/eureka'
     image: lsolak1996/api-gateway:0.0.1-SNAPSHOT
     expose:
       - 8585
