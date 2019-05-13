@@ -1,10 +1,12 @@
-version: '2.2'
+version: '3'
 services:
   eureka-server:
     container_name: eureka-server
     build:
       context: eureka-server
       dockerfile: Dockerfile
+      args:
+        eurekahost: '10.0.75.1'
     image: lsolak1996/eureka-server:0.0.1-SNAPSHOT
     expose:
       - 8761

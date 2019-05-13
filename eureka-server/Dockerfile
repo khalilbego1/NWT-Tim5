@@ -1,6 +1,7 @@
 FROM openjdk:8-jdk-alpine
+ARG eurekahost
 ENV APP_HOME /opt
 EXPOSE 8761
 COPY target/eureka-server-0.0.1-SNAPSHOT.jar $APP_HOME
-ARG JAR_FILE=target/eureka-server-0.0.1-SNAPSHOT.jar
+RUN echo "eureka.instance.hostname=$eurekahost">>$APP_HOME/application.properties
 ENTRYPOINT ["java", "-jar", "/opt/eureka-server-0.0.1-SNAPSHOT.jar"]
