@@ -5,9 +5,7 @@ services:
     build:
       context: eureka-server
       dockerfile: Dockerfile
-      args:
-        eurekahost: '10.0.75.1'
-    image: lsolak1996/eureka-server:0.0.1-SNAPSHOT
+    image: eureka-server:0.0.1-SNAPSHOT
     expose:
       - 8761
     ports:
@@ -24,8 +22,7 @@ services:
         dbuser: 'lsolak'
         dbpass: 'lsolak123'
         rabbithost: '10.0.75.1'
-        eureka: 'http://10.0.75.1:8761/eureka'
-    image: lsolak1996/user-management:0.0.1-SNAPSHOT
+    image: user-management:0.0.1-SNAPSHOT
     entrypoint: /opt/UserManagement-entrypoint.sh
     expose:
       - 8000
@@ -37,8 +34,6 @@ services:
       - eureka-server:eureka-server
     depends_on:
       - eureka-server
-    logging:
-      driver: json-file
   location-transport:
     container_name: location-transport
     build:
@@ -49,8 +44,7 @@ services:
         dbuser: 'lsolak'
         dbpass: 'lsolak123'
         rabbithost: '10.0.75.1'
-        eureka: 'http://10.0.75.1:8761/eureka'
-    image: lsolak1996/location-transport:0.0.1-SNAPSHOT
+    image: location-transport:0.0.1-SNAPSHOT
     entrypoint: /opt/LocationTransport-entrypoint.sh
     expose:
       - 8050
@@ -62,8 +56,6 @@ services:
       - eureka-server:eureka-server
     depends_on:
       - eureka-server
-    logging:
-      driver: json-file
   arrangements:
     container_name: arrangements
     build:
@@ -74,8 +66,7 @@ services:
         dbuser: 'lsolak'
         dbpass: 'lsolak123'
         rabbithost: '10.0.75.1'
-        eureka: 'http://10.0.75.1:8761/eureka'
-    image: lsolak1996/arrangements:0.0.1-SNAPSHOT
+    image: arrangements:0.0.1-SNAPSHOT
     entrypoint: /opt/Arrangements-entrypoint.sh
     expose:
       - 9000
@@ -87,16 +78,12 @@ services:
       - eureka-server:eureka-server
     depends_on:
       - eureka-server
-    logging:
-      driver: json-file
   api-gateway:
     container_name: api-gateway
     build:
       context: api-gateway
       dockerfile: Dockerfile
-      args:
-        eureka: 'http://10.0.75.1:8761/eureka'
-    image: lsolak1996/api-gateway:0.0.1-SNAPSHOT
+    image: api-gateway:0.0.1-SNAPSHOT
     expose:
       - 8585
     ports:
@@ -107,8 +94,6 @@ services:
       - eureka-server:eureka-server
     depends_on:
       - eureka-server
-    logging:
-      driver: json-file
 networks:
   emp-network:
     driver: bridge
