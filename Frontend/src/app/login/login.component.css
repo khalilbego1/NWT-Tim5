@@ -1,0 +1,24 @@
+.card{
+  margin-left: 40%;
+  margin-right: 40%;
+  background-color: #000D42;
+  margin-top: 5%;
+  color: white;
+
+}
+.btn{
+  background-color:#2977D1;
+  color: white;
+  margin: 0.2%;
+  width:100%;
+
+}
+.buttonSpace{
+  display: flex;
+}
+.form-control{
+  text-align: center;
+  background-color: #091B59;
+  color: white;
+  border-width: 0px;
+}
