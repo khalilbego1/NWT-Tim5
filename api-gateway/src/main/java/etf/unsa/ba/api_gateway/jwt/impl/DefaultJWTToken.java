@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import etf.unsa.ba.api_gateway.jwt.JWTToken;
 
 import java.util.Date;
+import java.util.List;
 
 public class DefaultJWTToken implements JWTToken {
     private DecodedJWT decodedJWT;
@@ -25,5 +26,10 @@ public class DefaultJWTToken implements JWTToken {
     @Override
     public String getPassword() {
         return decodedJWT.getClaim("password").asString();
+    }
+
+    @Override
+    public List<String> getRoles() {
+        return decodedJWT.getClaim("roles").asList(String.class);
     }
 }
