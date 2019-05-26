@@ -1,3 +1,22 @@
 p {
   font-family: Lato;
 }
+.image{
+    position:relative;
+    background-size: cover;
+    background-color: rgb(0, 10, 51);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100%;
+    min-width: 100%;
+      
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+  
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+  }

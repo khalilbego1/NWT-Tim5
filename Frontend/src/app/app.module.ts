@@ -8,11 +8,26 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
+import { UserDataComponent } from './user-data/user-data.component';
+import { RoleDataComponent } from './role-data/role-data.component';
+import { RouterModule } from '@angular/router';
+import {APP_BASE_HREF} from '@angular/common';
 
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ,NgbModule],
-  declarations: [ AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent ],
-  bootstrap:    [ AppComponent ]
+  imports:      [ 
+                  BrowserModule, 
+                  FormsModule ,
+                  NgbModule,
+                  RouterModule.forRoot([
+                    {path:'', redirectTo:'/login',pathMatch:'full'},
+                    {path:'login', component: LoginComponent},
+                    {path:'register',component:RegisterComponent},
+                    {path:'admin', component:AdminComponent}
+                  ])
+                ],
+  declarations: [ AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent ],
+  bootstrap:    [ AppComponent ],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
 })
 export class AppModule { }
