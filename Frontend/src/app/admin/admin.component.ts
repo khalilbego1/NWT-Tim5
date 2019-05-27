@@ -3,6 +3,8 @@ import {UserManagementService} from '../_services/user-management/user-managemen
 import {Role} from '../_services/user-management/role'
 import {User} from '../_services/user-management/user'
 import {LoginInput} from '../_services/user-management/loginInput'
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
@@ -17,10 +19,12 @@ export class AdminComponent implements OnInit {
   UserData:User[];
   RoleData:Role[];
   selectedRole:Role= new Role();
-  constructor(public userManagementService:UserManagementService) { }
+  constructor(public userManagementService:UserManagementService,  private route: ActivatedRoute,private location: Location) { }
 
   ngOnInit() {
 
+    const id = +this.route.snapshot.paramMap.get('id');
+    console.log(id);
     this.UserData=[];
     this.RoleData=[];
     this.refreshUsers()

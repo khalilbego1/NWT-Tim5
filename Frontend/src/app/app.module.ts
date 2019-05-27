@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { RoleDataComponent } from './role-data/role-data.component';
-import { RouterModule } from '@angular/router';
+import {  RouterModule, Routes } from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
                     {path:'', redirectTo:'/login',pathMatch:'full'},
                     {path:'login', component: LoginComponent},
                     {path:'register',component:RegisterComponent},
-                    {path:'admin', component:AdminComponent}
+                    {path:'admin', component:AdminComponent},
+                    {path:'admin/:id', component:AdminComponent}
                   ])
                 ],
   declarations: [ AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent ],
