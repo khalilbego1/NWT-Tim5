@@ -2,13 +2,13 @@
     <div class="card-body">
       <div class="row">
         <div class="col">
-          Rolename
+          {{role.type}}
         </div>
         <div class="col">
           <button class="btn">Edit</button>
         </div>
         <div class="col">
-          <button class="btn">Delete</button>
+          <button class="btn" (click)="delete()">Delete</button>
         </div>
       </div>
     </div>

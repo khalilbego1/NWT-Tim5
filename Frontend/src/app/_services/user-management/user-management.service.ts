@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User }from './user'
 import { LoginInput } from './loginInput'
 import { environment } from '../environment'
 import { Role } from './role';
 
-const baseUrl = environment.url+'/travelAgency/user-service'
+//const baseUrl = environment.url+'/travelAgency/user-service'
+const baseUrl ='http://localhost:8000';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class UserManagementService {
       body: data,
       responseType: 'json',
       observe: 'body'
+      
     });
     return new Promise<any>((resolve, reject) => {
       result.subscribe(resolve as any, reject as any);
@@ -59,7 +61,7 @@ export class UserManagementService {
     return this.request('put',baseUrl+'/roles/'+String(id),role)
   }
   deleteRole(id:number){
-    return this.request('delete',baseUrl+'/roles'+String(id))
+    return this.request('delete',baseUrl+'/roles/'+String(id))
   }
 
 }

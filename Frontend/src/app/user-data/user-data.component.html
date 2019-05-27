@@ -2,22 +2,22 @@
   <div class="card-body">
     <div class="row">
       <div class="col">
-        firstname
+        {{user.firstName}}
       </div>
       <div class="col">
-        lastname
+        {{user.lastName}}
       </div>
       <div class="col">
-        username
+        {{user.username}}
       </div>
       <div class ="col">
-        role
+        {{user.role.type}}
       </div>
       <div class="col">
         <button class="btn">Edit</button>
       </div>
       <div class="col">
-        <button class="btn">Delete</button>
+        <button class="btn" (click)="delete()">Delete</button>
       </div>
     </div>
   </div>

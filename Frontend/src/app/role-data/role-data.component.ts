@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import {UserManagementService}from '../_services/user-management/user-management.service'
+import {Role} from '../_services/user-management/role'
 
 @Component({
   selector: 'app-role-data',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleDataComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userManagementService:UserManagementService) { }
 
+  @Input() role:Role;
+  @Output() onDeleted = new EventEmitter<boolean>();
   ngOnInit() {
   }
+  async delete(){
+    await this.userManagementService.deleteRole(this.role.id)
+    this.onDeleted.emit(true);
 
+  }
 }

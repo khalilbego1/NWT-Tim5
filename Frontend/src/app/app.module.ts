@@ -12,6 +12,7 @@ import { UserDataComponent } from './user-data/user-data.component';
 import { RoleDataComponent } from './role-data/role-data.component';
 import { RouterModule } from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {APP_BASE_HREF} from '@angular/common';
                   BrowserModule, 
                   FormsModule ,
                   NgbModule,
+                  HttpClientModule,
                   RouterModule.forRoot([
                     {path:'', redirectTo:'/login',pathMatch:'full'},
                     {path:'login', component: LoginComponent},
