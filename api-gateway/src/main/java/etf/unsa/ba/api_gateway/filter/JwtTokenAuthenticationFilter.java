@@ -39,7 +39,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             JWTToken decodedToken = jwtProvider.decode(token);
             String username = decodedToken.getUsername();
             if (username != null) {
-                List<String> authorities = (List<String>) decodedToken.getRoles();
+                List<String> authorities = decodedToken.getRoles();
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username,
                         null,
                         authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
