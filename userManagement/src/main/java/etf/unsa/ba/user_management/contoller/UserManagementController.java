@@ -50,7 +50,7 @@ public class UserManagementController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.sender = sender;
     }
-
+    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginInput loginInput) {
         UserEntity foundUser = userService.getByUsername(loginInput.getUsername());
@@ -61,7 +61,7 @@ public class UserManagementController {
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
-
+    @CrossOrigin
     @GetMapping("/users")
     public Resources<Resource<UserEntity>> allUsers() {
         List<Resource<UserEntity>> users = userService.getAll()
@@ -71,7 +71,7 @@ public class UserManagementController {
         return new Resources<>(users,
                 linkTo(methodOn(UserManagementController.class).allUsers()).withSelfRel());
     }
-
+    @CrossOrigin
     @GetMapping("/users/{id}")
     public ResponseEntity<?> oneUser(@PathVariable int id) {
         UserEntity found = userService.getById(id);
@@ -80,7 +80,7 @@ public class UserManagementController {
                     HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(userResourceAssembler.toResource(found), HttpStatus.OK);
     }
-
+    @CrossOrigin
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
         if (userService.getByUsername(user.getUsername()) != null) {
@@ -92,7 +92,7 @@ public class UserManagementController {
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
-
+    @CrossOrigin
     @PutMapping("/users/{id}")
     public ResponseEntity<?> editUser(@Valid @RequestBody UserEntity user, @PathVariable int id) throws URISyntaxException {
         user.setId(id);
@@ -102,6 +102,7 @@ public class UserManagementController {
                 .body(resource);
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable int id) {
         UserEntity found = userService.getById(id);
@@ -114,7 +115,7 @@ public class UserManagementController {
         }
         return ResponseEntity.noContent().build();
     }
-
+    @CrossOrigin
     @GetMapping("/roles")
     public Resources<Resource<RoleEntity>> allRoles() {
         List<Resource<RoleEntity>> roles = roleService.getAll()
@@ -124,7 +125,7 @@ public class UserManagementController {
         return new Resources<>(roles,
                 linkTo(methodOn(UserManagementController.class).allRoles()).withSelfRel());
     }
-
+    @CrossOrigin
     @GetMapping("/roles/{id}")
     public ResponseEntity<?> oneRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);
@@ -133,7 +134,7 @@ public class UserManagementController {
                     HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(roleResourceAssembler.toResource(found), HttpStatus.OK);
     }
-
+    @CrossOrigin
     @GetMapping("/roles/{id}/users")
     public Resources<Resource<UserEntity>> usersForRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);
@@ -144,7 +145,7 @@ public class UserManagementController {
         return new Resources<>(users,
                 linkTo(methodOn(UserManagementController.class).usersForRole(id)).withSelfRel());
     }
-
+    @CrossOrigin
     @PostMapping("/roles")
     public ResponseEntity<?> addRole(@Valid @RequestBody RoleEntity role) throws URISyntaxException {
         Resource<RoleEntity> resource = roleResourceAssembler.toResource(roleService.insert(role));
@@ -152,7 +153,7 @@ public class UserManagementController {
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
-
+    @CrossOrigin
     @PutMapping("/roles/{id}")
     public ResponseEntity<?> editRole(@Valid @RequestBody RoleEntity role, @PathVariable int id) throws URISyntaxException {
         role.setId(id);
@@ -161,7 +162,7 @@ public class UserManagementController {
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
-
+    @CrossOrigin
     @DeleteMapping("/roles/{id}")
     public ResponseEntity<?> deleteRole(@PathVariable int id) {
         RoleEntity found = roleService.getById(id);

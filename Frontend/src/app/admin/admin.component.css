@@ -53,4 +53,8 @@
 .buttonSpace{
   display: flex;
 }
+.list-group-item{
+  padding: 0%;
+  border-style: hidden;
+}
 
