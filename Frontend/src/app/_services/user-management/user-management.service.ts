@@ -4,6 +4,7 @@ import { User }from './user'
 import { LoginInput } from './loginInput'
 import { environment } from '../environment'
 import { Role } from './role';
+import {OktaService} from '../auth/okta.service'
 
 //const baseUrl = environment.url+'/travelAgency/user-service'
 const baseUrl ='http://localhost:8000';
@@ -13,10 +14,18 @@ const baseUrl ='http://localhost:8000';
 })
 export class UserManagementService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private oktaService: OktaService) { }
 
   private async request(method: string, url: string, data?: any){
+    let headers: HttpHeaders = new HttpHeaders();
+    if (this.oktaService.getAccessToken()) {
+      const accessToken = this.oktaService.getAccessToken();
+      headers = headers.append('Authorization', accessToken.tokenType + ' ' + accessToken.accessToken);
+
+    }
+    headers =headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
     const result = this.http.request(method, url, {
+      headers:headers,
       body: data,
       responseType: 'json',
       observe: 'body'
@@ -49,7 +58,7 @@ export class UserManagementService {
     return this.request('get',baseUrl+'/roles');
   }
   oneRole(id:number){
-    return this.request('get',baseUrl+'/roles'+String(id))
+    return this.request('get',baseUrl+'/roles/'+String(id))
   }
   usersForRole(id:number){
     return this.request('get',baseUrl+'/roles/'+String(id)+'/users')

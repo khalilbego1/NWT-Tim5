@@ -13,6 +13,7 @@ import { RoleDataComponent } from './role-data/role-data.component';
 import {  RouterModule, Routes } from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import {OktaService}from './_services/auth/okta.service'
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
                   NgbModule,
                   HttpClientModule,
                   RouterModule.forRoot([
-                    {path:'', redirectTo:'/login',pathMatch:'full'},
+                    //{path:'', redirectTo:'/login',pathMatch:'full'},
                     {path:'login', component: LoginComponent},
                     {path:'register',component:RegisterComponent},
                     {path:'admin', component:AdminComponent},
@@ -31,6 +32,6 @@ import { HttpClientModule } from '@angular/common/http';
                 ],
   declarations: [ AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' },OktaService],
 })
 export class AppModule { }
