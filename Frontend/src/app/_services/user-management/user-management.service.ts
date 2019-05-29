@@ -21,9 +21,9 @@ export class UserManagementService {
     if (this.oktaService.getAccessToken()) {
       const accessToken = this.oktaService.getAccessToken();
       headers = headers.append('Authorization', accessToken.tokenType + ' ' + accessToken.accessToken);
-
+      headers =headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
     }
-    headers =headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
+
     const result = this.http.request(method, url, {
       headers:headers,
       body: data,

@@ -57,7 +57,7 @@ public class UserManagementController {
         ApiError apiError = null;
         if (foundUser == null)
             apiError = new ApiError("Login failed", "Username or password are not correct");
-        else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword()))
+        else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), bCryptPasswordEncoder.encode(foundUser.getPassword())))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
