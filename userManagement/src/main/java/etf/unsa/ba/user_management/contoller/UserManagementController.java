@@ -1,6 +1,8 @@
 package etf.unsa.ba.user_management.contoller;
 
 import etf.unsa.ba.user_management.model.LoginInput;
+import etf.unsa.ba.user_management.model.TokenRequest;
+import etf.unsa.ba.user_management.model.TokenResponse;
 import etf.unsa.ba.user_management.model.entity.RoleEntity;
 import etf.unsa.ba.user_management.model.entity.UserEntity;
 import etf.unsa.ba.user_management.service.assembler.RoleResourceAssembler;
@@ -9,6 +11,7 @@ import etf.unsa.ba.user_management.service.data.RoleService;
 import etf.unsa.ba.user_management.service.data.UserService;
 import etf.unsa.ba.user_management.service.event.Sender;
 import etf.unsa.ba.user_management.service.exception.ApiError;
+import etf.unsa.ba.user_management.service.jwt.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -35,6 +38,7 @@ public class UserManagementController {
     private final RoleService roleService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final Sender sender;
+    private final TokenServiceImpl tokenService;
 
     @Autowired
     public UserManagementController(UserService userService,
@@ -42,13 +46,14 @@ public class UserManagementController {
                                     RoleResourceAssembler roleResourceAssembler,
                                     RoleService roleService,
                                     BCryptPasswordEncoder bCryptPasswordEncoder,
-                                    Sender sender) {
+                                    Sender sender, TokenServiceImpl tokenService) {
         this.userResourceAssembler = userResourceAssembler;
         this.roleResourceAssembler = roleResourceAssembler;
         this.userService = userService;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.sender = sender;
+        this.tokenService = tokenService;
     }
 
     @CrossOrigin
@@ -58,8 +63,11 @@ public class UserManagementController {
         ApiError apiError = null;
         if (foundUser == null)
             apiError = new ApiError("Login failed", "Username or password are not correct");
-        else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword()))
-            return new ResponseEntity<>(HttpStatus.OK);
+        else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword())) {
+            TokenRequest tokenRequest = new TokenRequest(loginInput.getUsername(), loginInput.getPassword());
+            TokenResponse tokenResponse = tokenService.generate(tokenRequest, foundUser);
+            return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
+        }
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
 

@@ -36,9 +36,4 @@ public class RoleEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserEntity> users = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return String.format("%s", getType());
-    }
 }

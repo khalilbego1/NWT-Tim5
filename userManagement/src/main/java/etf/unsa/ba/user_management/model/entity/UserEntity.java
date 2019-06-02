@@ -56,9 +56,4 @@ public class UserEntity {
     @ManyToOne
     @JoinColumn(name = "roleId")
     private RoleEntity role;
-
-    @Override
-    public String toString() {
-        return String.format("%s %s (%s)", getFirstName(), getLastName(), getUsername());
-    }
 }

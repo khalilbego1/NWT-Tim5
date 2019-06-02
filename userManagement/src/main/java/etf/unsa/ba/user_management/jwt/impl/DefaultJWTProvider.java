@@ -8,6 +8,7 @@ import etf.unsa.ba.user_management.jwt.JWTProvider;
 import etf.unsa.ba.user_management.jwt.JWTToken;
 import etf.unsa.ba.user_management.jwt.exception.InvalidTokenException;
 import etf.unsa.ba.user_management.model.TokenRequest;
+import etf.unsa.ba.user_management.model.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -29,12 +30,13 @@ public class DefaultJWTProvider implements JWTProvider {
     }
 
     @Override
-    public String create(TokenRequest tokenRequest, OffsetDateTime expirationTime) {
+    public String create(TokenRequest tokenRequest, UserEntity user, OffsetDateTime expirationTime) {
         return JWT.create()
                 .withIssuer(JWT_ISSUER)
                 .withExpiresAt(Date.from(expirationTime.toInstant()))
                 .withClaim("username", tokenRequest.getUsername())
-                .withClaim("password", tokenRequest.getPassword())
+                .withClaim("role", user.getRole().getType().toString())
+                .withClaim("id", user.getId())
                 .sign(algorithm);
     }
 
