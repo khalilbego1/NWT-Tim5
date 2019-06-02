@@ -2,8 +2,8 @@ package etf.unsa.ba.user_management;
 
 import etf.unsa.ba.user_management.model.entity.RoleEntity;
 import etf.unsa.ba.user_management.model.entity.UserEntity;
-import etf.unsa.ba.user_management.repository.RoleRepository;
-import etf.unsa.ba.user_management.repository.UserRepository;
+import etf.unsa.ba.user_management.service.data.RoleService;
+import etf.unsa.ba.user_management.service.data.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,14 +26,14 @@ public class UserManagementApplication {
     }
 
     @Bean
-    public CommandLineRunner insertData(UserRepository userRepository, RoleRepository roleRepository) {
+    public CommandLineRunner insertData(UserService userService, RoleService roleService) {
         return (args) -> {
-            roleRepository.save(new RoleEntity(0, RoleEntity.Type.PASSENGER, null, null));
-            roleRepository.save(new RoleEntity(0, RoleEntity.Type.EMPLOYEE, null, null));
+            roleService.insert(new RoleEntity(0, RoleEntity.Type.PASSENGER, null, null));
+            roleService.insert(new RoleEntity(0, RoleEntity.Type.EMPLOYEE, null, null));
 
-            List<RoleEntity> roleEntities = roleRepository.findAll();
+            List<RoleEntity> roleEntities = roleService.getAll();
             for (int i = 0; i < roleEntities.size(); i++) {
-                userRepository.save(new UserEntity(0,
+                userService.insert(new UserEntity(0,
                         "Lejla",
                         "Solak",
                         "lsolak" + i,

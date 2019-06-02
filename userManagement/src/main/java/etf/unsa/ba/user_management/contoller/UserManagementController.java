@@ -93,7 +93,7 @@ public class UserManagementController {
     }
 
     @CrossOrigin
-    @PostMapping("/registration")
+    @PostMapping("/register")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
         if (userService.getByUsername(user.getUsername()) != null) {
             new ResponseEntity<>(new ApiError("Registration failed", "User with the same username already exists"),
