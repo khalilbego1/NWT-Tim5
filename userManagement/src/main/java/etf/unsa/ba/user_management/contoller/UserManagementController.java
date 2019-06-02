@@ -12,6 +12,7 @@ import etf.unsa.ba.user_management.service.data.UserService;
 import etf.unsa.ba.user_management.service.event.Sender;
 import etf.unsa.ba.user_management.service.exception.ApiError;
 import etf.unsa.ba.user_management.service.jwt.TokenServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -30,6 +31,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @SuppressWarnings("ALL")
+@Slf4j
 @RestController
 public class UserManagementController {
     private final UserService userService;
@@ -75,9 +77,8 @@ public class UserManagementController {
     @PostMapping("/validate")
     public ResponseEntity<?> validate(@RequestBody String token) throws URISyntaxException {
         UserEntity foundUser = userService.getByToken(token);
-        if (foundUser == null) {
+        if (foundUser == null)
             return new ResponseEntity<>(new ApiError("Invalid token"), HttpStatus.UNAUTHORIZED);
-        }
         return ResponseEntity.ok(userResourceAssembler.toResource(foundUser));
     }
 

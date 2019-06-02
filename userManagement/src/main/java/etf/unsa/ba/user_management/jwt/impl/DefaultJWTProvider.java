@@ -9,15 +9,17 @@ import etf.unsa.ba.user_management.jwt.JWTToken;
 import etf.unsa.ba.user_management.jwt.exception.InvalidTokenException;
 import etf.unsa.ba.user_management.model.TokenRequest;
 import etf.unsa.ba.user_management.model.entity.UserEntity;
-import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.OffsetDateTime;
 
-@Service
+@Slf4j
+@Component
 public class DefaultJWTProvider implements JWTProvider {
     private static final String JWT_ISSUER = "TravelAgency";
-    private static final String JWT_SECRET = "TravelAgency_secret";
+    private static final String JWT_SECRET = "TravelAgencySecret";
 
     private Algorithm algorithm;
     private JWTVerifier jwtVerifier;
@@ -46,6 +48,7 @@ public class DefaultJWTProvider implements JWTProvider {
             DecodedJWT jwt = jwtVerifier.verify(token);
             return new DefaultJWTToken(jwt);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new InvalidTokenException(e.getMessage());
         }
     }
