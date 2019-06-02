@@ -50,6 +50,7 @@ public class UserManagementController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.sender = sender;
     }
+
     @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginInput loginInput) {
@@ -57,10 +58,11 @@ public class UserManagementController {
         ApiError apiError = null;
         if (foundUser == null)
             apiError = new ApiError("Login failed", "Username or password are not correct");
-        else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), bCryptPasswordEncoder.encode(foundUser.getPassword())))
+        else if (bCryptPasswordEncoder.matches(loginInput.getPassword(), foundUser.getPassword()))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
+
     @CrossOrigin
     @GetMapping("/users")
     public Resources<Resource<UserEntity>> allUsers() {
@@ -71,6 +73,7 @@ public class UserManagementController {
         return new Resources<>(users,
                 linkTo(methodOn(UserManagementController.class).allUsers()).withSelfRel());
     }
+
     @CrossOrigin
     @GetMapping("/users/{id}")
     public ResponseEntity<?> oneUser(@PathVariable int id) {
@@ -80,6 +83,7 @@ public class UserManagementController {
                     HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(userResourceAssembler.toResource(found), HttpStatus.OK);
     }
+
     @CrossOrigin
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserEntity user) throws URISyntaxException {
@@ -92,6 +96,7 @@ public class UserManagementController {
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
+
     @CrossOrigin
     @PutMapping("/users/{id}")
     public ResponseEntity<?> editUser(@Valid @RequestBody UserEntity user, @PathVariable int id) throws URISyntaxException {
@@ -115,6 +120,7 @@ public class UserManagementController {
         }
         return ResponseEntity.noContent().build();
     }
+
     @CrossOrigin
     @GetMapping("/roles")
     public Resources<Resource<RoleEntity>> allRoles() {
@@ -125,6 +131,7 @@ public class UserManagementController {
         return new Resources<>(roles,
                 linkTo(methodOn(UserManagementController.class).allRoles()).withSelfRel());
     }
+
     @CrossOrigin
     @GetMapping("/roles/{id}")
     public ResponseEntity<?> oneRole(@PathVariable int id) {
@@ -134,6 +141,7 @@ public class UserManagementController {
                     HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(roleResourceAssembler.toResource(found), HttpStatus.OK);
     }
+
     @CrossOrigin
     @GetMapping("/roles/{id}/users")
     public Resources<Resource<UserEntity>> usersForRole(@PathVariable int id) {
@@ -145,6 +153,7 @@ public class UserManagementController {
         return new Resources<>(users,
                 linkTo(methodOn(UserManagementController.class).usersForRole(id)).withSelfRel());
     }
+
     @CrossOrigin
     @PostMapping("/roles")
     public ResponseEntity<?> addRole(@Valid @RequestBody RoleEntity role) throws URISyntaxException {
@@ -153,6 +162,7 @@ public class UserManagementController {
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
+
     @CrossOrigin
     @PutMapping("/roles/{id}")
     public ResponseEntity<?> editRole(@Valid @RequestBody RoleEntity role, @PathVariable int id) throws URISyntaxException {
@@ -162,6 +172,7 @@ public class UserManagementController {
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
+
     @CrossOrigin
     @DeleteMapping("/roles/{id}")
     public ResponseEntity<?> deleteRole(@PathVariable int id) {
