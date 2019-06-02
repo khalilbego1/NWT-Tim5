@@ -72,6 +72,16 @@ public class UserManagementController {
     }
 
     @CrossOrigin
+    @PostMapping("/validate")
+    public ResponseEntity<?> validate(@RequestBody String token) throws URISyntaxException {
+        UserEntity foundUser = userService.getByToken(token);
+        if (foundUser == null) {
+            return new ResponseEntity<>(new ApiError("Invalid token"), HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseEntity.ok(userResourceAssembler.toResource(foundUser));
+    }
+
+    @CrossOrigin
     @GetMapping("/users")
     public Resources<Resource<UserEntity>> allUsers() {
         List<Resource<UserEntity>> users = userService.getAll()

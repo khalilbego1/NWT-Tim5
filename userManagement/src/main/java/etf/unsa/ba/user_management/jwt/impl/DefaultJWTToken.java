@@ -19,7 +19,7 @@ public class DefaultJWTToken implements JWTToken {
 
     @Override
     public Integer getId() {
-        return decodedJWT.getClaim("username").asInt();
+        return decodedJWT.getClaim("id").asInt();
     }
 
     @Override

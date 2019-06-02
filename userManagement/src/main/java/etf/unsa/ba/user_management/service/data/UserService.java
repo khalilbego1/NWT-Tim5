@@ -1,5 +1,8 @@
 package etf.unsa.ba.user_management.service.data;
 
+import etf.unsa.ba.user_management.jwt.JWTToken;
+import etf.unsa.ba.user_management.jwt.exception.InvalidTokenException;
+import etf.unsa.ba.user_management.jwt.impl.DefaultJWTProvider;
 import etf.unsa.ba.user_management.model.entity.RoleEntity;
 import etf.unsa.ba.user_management.model.entity.UserEntity;
 import etf.unsa.ba.user_management.repository.UserRepository;
@@ -8,22 +11,33 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserService {
     private UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final DefaultJWTProvider jwtProvider;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, DefaultJWTProvider jwtProvider) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.jwtProvider = jwtProvider;
+    }
+
+    public UserEntity getByToken(String token) {
+        try {
+            JWTToken jwtToken = jwtProvider.decode(token);
+            return getById(jwtToken.getId());
+        } catch (InvalidTokenException e) {
+            return null;
+        }
     }
 
     public UserEntity getById(Integer Id) {
-        if (userRepository.findById(Id).isPresent())
-            return userRepository.findById(Id).get();
-        return null;
+        Optional<UserEntity> userEntity = userRepository.findById(Id);
+        return userEntity.orElse(null);
     }
 
     public List<UserEntity> getAll() {
