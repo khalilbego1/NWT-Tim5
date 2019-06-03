@@ -24,9 +24,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/travelAgency/user-service/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/travelAgency/user-service/validate").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/travelAgency/user-service/login");
+                .antMatchers(HttpMethod.POST, "/travelAgency/user-service/register").permitAll()
+                .anyRequest().authenticated();
     }
 }

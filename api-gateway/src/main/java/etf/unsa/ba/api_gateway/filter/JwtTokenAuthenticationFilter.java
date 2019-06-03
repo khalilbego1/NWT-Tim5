@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
-
     public JwtTokenAuthenticationFilter() {
     }
 
@@ -37,9 +36,9 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         try {
             RestTemplate restTemplate = new RestTemplate();
             UserEntity userEntity = restTemplate.postForObject("http://localhost:8585/travelAgency/user-service/validate", token, UserEntity.class);
-            List<String> authorities = Collections.singletonList(userEntity.getRole().getType().toString());
+            List<String> authorities = Collections.singletonList("ROLE_" + userEntity.getRole().getType().toString());
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userEntity.getUsername(),
-                    null,
+                    userEntity.getPassword(),
                     authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
             );
             SecurityContextHolder.getContext().setAuthentication(auth);
