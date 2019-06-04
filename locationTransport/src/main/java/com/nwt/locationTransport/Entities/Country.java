@@ -22,8 +22,6 @@ public class Country {
     @Column(name ="NAME",nullable = false)
     @NotNull
     private String name;
-    @OneToMany(mappedBy = "country",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Region> regions = new HashSet<>();
 
     public Country(String name) {
         this.name = name;

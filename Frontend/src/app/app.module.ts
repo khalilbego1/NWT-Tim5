@@ -13,7 +13,9 @@ import { RoleDataComponent } from './role-data/role-data.component';
 import {  RouterModule, Routes } from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import {OktaService}from './_services/auth/okta.service'
+import {OktaService}from './_services/auth/okta.service';
+import { EmployeeComponent } from './employee/employee.component';
+import { PassengerComponent } from './passenger/passenger.component'
 
 
 @NgModule({
@@ -27,10 +29,11 @@ import {OktaService}from './_services/auth/okta.service'
                     {path:'login', component: LoginComponent},
                     {path:'register',component:RegisterComponent},
                     {path:'admin', component:AdminComponent},
-                    {path:'admin/:id', component:AdminComponent}
+                    {path:'admin/:id', component:AdminComponent},
+                    {path:'employee',component:EmployeeComponent}
                   ])
                 ],
-  declarations: [ AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent ],
+  declarations: [ AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{provide: APP_BASE_HREF, useValue : '/' },OktaService],
 })

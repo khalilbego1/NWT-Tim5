@@ -42,16 +42,8 @@ export class AppComponent  {
   }
 
   ngOnInit() {
-    this.signIn.session.get((response) => {
-      if (response.status !== 'INACTIVE') {
-        console.log('session')
-        const token = this.oktaService.getIdToken();
-        this.user = this.getUser(token);
-        this.changeDetectorRef.detectChanges();
-      } else {
-        this.showLogin();
-      }
-    });
+
+
   }
 
   logout() {

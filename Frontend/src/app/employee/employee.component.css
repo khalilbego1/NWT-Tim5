@@ -1,0 +1,61 @@
+.card{
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #000D42;
+    margin-top: 5%;
+    color: white;
+  
+  }
+  
+  ::ng-deep .nav-pills .nav-link.active, 
+  ::ng-deep .nav-pills .show > .nav-link {
+      color: #fff;
+      background-color: #091B59;
+      margin: auto;
+      width: 100%;
+  }
+  ::ng-deep .nav-pills .nav-link, 
+  ::ng-deep .nav-pills .show > .nav-link {
+      color: #fff;
+      background-color: #00336A;
+      margin: auto;
+      width: 100%;
+  }
+  .form-control{
+    text-align: center;
+    background-color: #091B59;
+    color: white;
+    border-width: 0px;
+  }
+  .tab-form{
+    margin-top: 5%;
+    text-align: center
+  }
+  .search{
+    display: inline-block;
+  }
+  .search-field{
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%
+  }
+  
+  .empty{
+    margin: 10%
+  }
+  .btn{
+    background-color:#2977D1;
+    color: white;
+    margin: 0.2%;
+    width:100%;
+  
+  }
+  .buttonSpace{
+    display: flex;
+  }
+  .list-group-item{
+    padding: 0%;
+    border-style: hidden;
+  }
+  
+  

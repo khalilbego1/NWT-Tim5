@@ -31,8 +31,7 @@ public class City {
     @JoinColumn(name = "REGION_ID")
     private Region region;
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Destination> destinations = new HashSet<>();
+
 
     public City(String name, Region region) {
         this.name = name;

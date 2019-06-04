@@ -10,6 +10,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.io.Console;
+
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableJpaRepositories
@@ -35,6 +37,7 @@ public class LocationTransportApplication {
 			transportationTypeRepo.save(tt1);
 			Transportation t1 = new Transportation("TransportationTest",tt1);
 			transportationRepo.save(t1);
+
 		};
 	}
 

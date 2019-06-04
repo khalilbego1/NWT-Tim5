@@ -1,5 +1,7 @@
 package com.nwt.locationTransport.Entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "REGIONS")
 public class Region {
     @Id
@@ -25,8 +28,7 @@ public class Region {
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;
 
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<City> cities = new HashSet<>();
+
 
     public Region(String name, Country country) {
         this.name = name;

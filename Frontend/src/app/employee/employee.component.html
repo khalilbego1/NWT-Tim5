@@ -1,0 +1,79 @@
+<div class="card">
+	<div class="card-body">
+    <ngb-tabset type="pills">
+  <ngb-tab title="Create destination">
+    <ng-template ngbTabContent>
+    <div class = "tab-form" >
+    <form (ngSubmit)="submitUser($event)"[ngbCollapse]="isCountryCollapsed">
+      <div class="form-group">
+        <input type="text" class="form-control" required placeholder="Name" name="name">
+      </div>
+      <div class = "buttonSpace">
+      <button type="submit" class="btn">Create</button>
+      </div>
+    </form>
+    <button type="button" class="btn" (click)="isCountryCollapsed=!isCountryCollapsed">Add Country</button>
+    <form (ngSubmit)="submitUser($event)"[ngbCollapse]="isRegionCollapsed">
+        <div class="form-group">
+          <input type="text" class="form-control" required placeholder="Name" name="name">
+        </div>
+        <div class="form-group">
+          <select class="form-control" (ngModelChange)="setRole($event)" [(ngModel)]="selectedRole" [ngModelOptions]="{standalone: true}">
+            <option *ngFor ="let role of RoleData" [(ngValue)]="role">{{role.type}}</option>
+          </select>
+        </div>
+        <div class = "buttonSpace">
+        <button type="submit" class="btn">Create</button>
+        </div>
+      </form>
+      <button type="button" class="btn" (click)="isRegionCollapsed=!isRegionCollapsed">Add Region</button>   
+    </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="All users">
+    <ng-template ngbTabContent>
+      <div class ="tab-form">
+        <form>
+        </form>
+        <ul class="list-group">
+          <li class="list-group-item" >
+              <app-user-data *ngFor="let user of UserData" [user]="user" (onDeleted)="onDeletedUser($event)"></app-user-data>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Create role">
+    <ng-template ngbTabContent>
+        <div class = "tab-form">
+            <form (ngSubmit)="submitRole($event)">
+              <div class="form-group">
+                <input type="text" class="form-control" required placeholder="Type" name ="type">
+              </div>
+              <div class="form-group">
+              <textarea rows="4"class="form-control" placeholder="Description"(input)="this.newRole.description = $event.target.value"></textarea>
+              </div>
+              <div class="empty">
+              </div>
+              <div class = "buttonSpace">
+              <button type="submit" class="btn">Add role</button>
+              </div>
+            </form>
+            </div>
+      </ng-template>
+  </ngb-tab>
+    <ngb-tab title="All roles">
+    <ng-template ngbTabContent>
+        <div class ="tab-form">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <app-role-data *ngFor="let role of RoleData" [role]="role" (onDeleted)="onDeletedRole($event)"></app-role-data>
+              </li>
+            </ul>
+          </div>
+    
+      </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+	</div>
+</div>
