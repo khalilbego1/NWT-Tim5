@@ -1,5 +1,4 @@
-
-export class TransportType{
-    id?:number;
-    name:string;    
+export class TransportType {
+    id?: number;
+    name: string;
 }

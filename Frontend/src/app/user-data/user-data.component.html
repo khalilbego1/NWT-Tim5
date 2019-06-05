@@ -1,24 +1,83 @@
 <div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col">
-        {{user.firstName}}
-      </div>
-      <div class="col">
-        {{user.lastName}}
-      </div>
-      <div class="col">
-        {{user.username}}
-      </div>
-      <div class ="col">
-        {{user.role.type}}
-      </div>
-      <div class="col">
-        <button class="btn">Edit</button>
-      </div>
-      <div class="col">
-        <button class="btn" (click)="delete()">Delete</button>
-      </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                {{user.firstName}}
+            </div>
+            <div class="col">
+                {{user.lastName}}
+            </div>
+            <div class="col">
+                {{user.username}}
+            </div>
+            <div class="col">
+                {{user.role.type}}
+            </div>
+            <div class="col">
+                <button class="btn" (click)="showDetailsDialog = !showDetailsDialog;
+                                             showEditDialog = false">Details
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn" (click)="showEditDialog = !showEditDialog;
+                                             showDetailsDialog = false">Edit
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn" (click)="delete()">Delete</button>
+            </div>
+        </div>
     </div>
-  </div>
+    <div>
+        <app-edit-dialog [(visible)]="showEditDialog && !showDetailsDialog">
+            <form (ngSubmit)="submitUser($event)">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="firstname" value="{{user.firstName}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="lastname" value="{{user.lastName}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" value="{{user.username}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="email" value="{{user.email}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="date" value="{{user.dateOfBirth}}">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" (ngModelChange)="setRole($event)"
+                            [(ngModel)]="selectedRole" [ngModelOptions]="{standalone: true}">
+                        <option *ngFor="let role of RoleData" [(ngValue)]="role">{{role.type}}</option>
+                    </select>
+                </div>
+                <div class="buttonSpace">
+                    <button type="submit" class="btn">Save changes</button>
+                </div>
+            </form>
+        </app-edit-dialog>
+    </div>
+    <div>
+        <app-details-dialog [(visible)]="showDetailsDialog && !showEditDialog">
+            <div class="form-group">
+                <label>First name: {{user.firstName}}</label>
+            </div>
+            <div class="form-group">
+                <label>Last name: {{user.lastName}}</label>
+            </div>
+            <div class="form-group">
+                <label>Username: {{user.username}}</label>
+            </div>
+            <div class="form-group">
+                <label>E-mail: {{user.email}}</label>
+            </div>
+            <div class="form-group">
+                <label>Date of birth: {{user.dateOfBirth}}</label>
+            </div>
+            <div class="form-group">
+                <label>Role type: {{user.role.type}}</label>
+            </div>
+        </app-details-dialog>
+    </div>
 </div>

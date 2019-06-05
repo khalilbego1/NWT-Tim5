@@ -1,7 +1,6 @@
 .card {
     background-color: rgb(30, 81, 139);
     color: white;
-
 }
 
 .card-body {
@@ -13,7 +12,6 @@
     color: white;
     margin: 0.2%;
     width: 100%;
-
 }
 
 .col {
@@ -21,6 +19,12 @@
 }
 
 .row {
-
     height: 5%
+}
+
+.form-control {
+    text-align: center;
+    background-color: #091B59;
+    color: white;
+    border-width: 0;
 }

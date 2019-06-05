@@ -1,4 +1,4 @@
-export class LoginInput{
+export class LoginInput {
     username: string;
     password: string;
 }

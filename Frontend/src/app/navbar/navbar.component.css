@@ -1,13 +1,12 @@
-.navbar-text{
-  font-size: 150%;
-  vertical-align: middle;
-  color: #A5D5FF;
-  font-family: "Arial Black", Gadget, sans-serif;
-  margin-left: 1%;
-  
+.navbar-text {
+    font-size: 150%;
+    vertical-align: middle;
+    color: #A5D5FF;
+    font-family: "Arial Black", Gadget, sans-serif;
+    margin-left: 1%;
 }
-.navbar-expand-lg{
-background-color: #000D42;
-padding: 5px
 
+.navbar-expand-lg {
+    background-color: #000D42;
+    padding: 5px
 }
