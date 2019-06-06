@@ -31,7 +31,7 @@ export class RoleDataComponent implements OnInit {
     }
 
     async updateRole() {
-        await this.userManagementService.addRole(this.role);
+        await this.userManagementService.editRole(this.role.id, this.role);
         this.showEditDialog = false;
     }
 }

@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="046abeaa-3811-4ad7-950c-e77df481f09c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/admin/admin.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/admin.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/role-data/role-data.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/role-data/role-data.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/role-data/role-data.component.spec.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/role-data/role-data.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/role-data/role-data.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user-data/details-dialog/details-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user-data/details-dialog/details-dialog.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user-data/edit-dialog/edit-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user-data/edit-dialog/edit-dialog.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -23,17 +18,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/role-data/role-data.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+            <state relative-caret-position="234">
+              <caret line="18" column="14" lean-forward="true" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/role-data/edit-role-dialog/edit-role-dialog.component.css">
+        <entry file="file://$PROJECT_DIR$/src/app/role-data/role-data.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="338">
+              <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#77#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,7 +123,6 @@
         <option value="$PROJECT_DIR$/src/app/user-data/user-data.component.html" />
         <option value="$PROJECT_DIR$/src/app/user-data/user-data.component.ts" />
         <option value="$PROJECT_DIR$/src/app/admin/admin.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/role-data/role-data.component.ts" />
         <option value="$PROJECT_DIR$/src/app/role-data/edit-dialog/edit-dialog.component.ts" />
         <option value="$PROJECT_DIR$/src/app/role-data/edit-role-dialog/edit-role-dialog.component.html" />
         <option value="$PROJECT_DIR$/src/app/user-data/edit-dialog/edit-dialog.component.ts" />
@@ -135,6 +132,7 @@
         <option value="$PROJECT_DIR$/src/app/role-data/role-details-dialog/role-details-dialog.component.html" />
         <option value="$PROJECT_DIR$/src/app/role-data/role-data.component.html" />
         <option value="$PROJECT_DIR$/src/app/role-data/edit-role-dialog/edit-role-dialog.component.css" />
+        <option value="$PROJECT_DIR$/src/app/role-data/role-data.component.ts" />
       </list>
     </option>
   </component>
@@ -245,7 +243,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559780080609" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559780139468" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -298,12 +296,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559765247015</updated>
-      <workItem from="1559765254157" duration="13401000" />
+      <workItem from="1559765254157" duration="13574000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13401000" />
+    <option name="totallyTimeSpent" value="13574000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="974" height="1050" extended-state="0" />
@@ -595,16 +593,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/role-data/role-data.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/_services/user-management/user-management.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
@@ -727,17 +715,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/role-data/edit-role-dialog/edit-role-dialog.component.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/role-data/role-data.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        <state relative-caret-position="234">
+          <caret line="18" column="14" lean-forward="true" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/role-data/edit-role-dialog/edit-role-dialog.component.css">
+    <entry file="file://$PROJECT_DIR$/src/app/role-data/role-data.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="338">
+          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#77#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
