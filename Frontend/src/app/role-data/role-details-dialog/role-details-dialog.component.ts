@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-    selector: 'app-edit-dialog',
-    templateUrl: './edit-dialog.component.html',
-    styleUrls: ['./edit-dialog.component.css']
+    selector: 'app-role-details-dialog',
+    templateUrl: './role-details-dialog.component.html',
+    styleUrls: ['./role-details-dialog.component.css']
 })
-export class EditDialogComponent implements OnInit {
+export class RoleDetailsDialogComponent implements OnInit {
 
     @Input() closable = true;
     @Input() visible: boolean;

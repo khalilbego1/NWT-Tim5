@@ -79,6 +79,7 @@ export class AdminComponent implements OnInit {
 
     submitRole(event: any) {
         this.newRole.type = event.target.type.value;
+        this.newRole.description = event.target.description.value;
         this.createNewRole();
     }
 }

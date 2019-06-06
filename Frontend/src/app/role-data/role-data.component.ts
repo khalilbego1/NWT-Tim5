@@ -8,19 +8,30 @@ import {Role} from '../_services/user-management/role'
     styleUrls: ['./role-data.component.css']
 })
 export class RoleDataComponent implements OnInit {
+    @Input() role: Role;
+    @Output() onDeleted = new EventEmitter<boolean>();
+    showEditDialog: Boolean = false;
+    showDetailsDialog: Boolean = false;
 
     constructor(public userManagementService: UserManagementService) {
     }
-
-    @Input() role: Role;
-    @Output() onDeleted = new EventEmitter<boolean>();
 
     ngOnInit() {
     }
 
     async delete() {
-        await this.userManagementService.deleteRole(this.role.id)
+        await this.userManagementService.deleteRole(this.role.id);
         this.onDeleted.emit(true);
+    }
 
+    submitRole(event: any) {
+        this.role.type = event.target.type.value;
+        this.role.description = event.target.description.value;
+        this.updateRole();
+    }
+
+    async updateRole() {
+        await this.userManagementService.addRole(this.role);
+        this.showEditDialog = false;
     }
 }

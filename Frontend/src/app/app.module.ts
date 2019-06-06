@@ -16,7 +16,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {EmployeeComponent} from './employee/employee.component';
 import {PassengerComponent} from './passenger/passenger.component';
 import { EditDialogComponent } from './user-data/edit-dialog/edit-dialog.component';
-import { DetailsDialogComponent } from './user-data/details-dialog/details-dialog.component'
+import { DetailsDialogComponent } from './user-data/details-dialog/details-dialog.component';
+import { EditRoleDialogComponent } from './role-data/edit-role-dialog/edit-role-dialog.component';
+import { RoleDetailsDialogComponent } from './role-data/role-details-dialog/role-details-dialog.component'
 
 @NgModule({
     imports: [
@@ -33,7 +35,7 @@ import { DetailsDialogComponent } from './user-data/details-dialog/details-dialo
             {path: 'employee', component: EmployeeComponent}
         ])
     ],
-    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent],
+    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent],
     bootstrap: [AppComponent],
     providers: [{provide: APP_BASE_HREF, useValue: '/'}],
 })
