@@ -45,7 +45,7 @@
 }
 
 .empty {
-    margin: 10%
+    margin: 2%
 }
 
 .btn {
@@ -53,6 +53,9 @@
     color: white;
     margin: 0.2%;
     width: 100%;
+}
+.btnCollapse{
+    background-color: rgb(31, 41, 83);
 }
 
 .buttonSpace {
@@ -63,5 +66,6 @@
     padding: 0%;
     border-style: hidden;
 }
+
   
   

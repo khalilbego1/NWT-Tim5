@@ -97,11 +97,11 @@ export class LocationService {
     }
 
     addRegion(region: Region) {
-        return this.request('post', baseUrl + '/region', region)
+        return this.request('post', baseUrl + '/regions', region)
     }
 
     editRegion(id: number, region: Region) {
-        return this.request('put', baseUrl + '/region' + String(id), region);
+        return this.request('put', baseUrl + '/regions' + String(id), region);
     }
 
     deleteRegion(id: number) {

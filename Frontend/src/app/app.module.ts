@@ -18,7 +18,8 @@ import {PassengerComponent} from './passenger/passenger.component';
 import { EditDialogComponent } from './user-data/edit-dialog/edit-dialog.component';
 import { DetailsDialogComponent } from './user-data/details-dialog/details-dialog.component';
 import { EditRoleDialogComponent } from './role-data/edit-role-dialog/edit-role-dialog.component';
-import { RoleDetailsDialogComponent } from './role-data/role-details-dialog/role-details-dialog.component'
+import { RoleDetailsDialogComponent } from './role-data/role-details-dialog/role-details-dialog.component';
+import { LocationDataComponent } from './location-data/location-data.component'
 
 @NgModule({
     imports: [
@@ -35,7 +36,7 @@ import { RoleDetailsDialogComponent } from './role-data/role-details-dialog/role
             {path: 'employee', component: EmployeeComponent}
         ])
     ],
-    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent],
+    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent, LocationDataComponent],
     bootstrap: [AppComponent],
     providers: [{provide: APP_BASE_HREF, useValue: '/'}],
 })

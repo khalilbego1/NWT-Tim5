@@ -19,56 +19,64 @@ public class TransportationController {
     private TransportationRepo transportationRepo;
     @Autowired
     private TransportationTypeRepo typeRepo;
-
+    @CrossOrigin
     @GetMapping("/")
     public Iterable<Transportation> getAllTransportation() {
         Iterable<Transportation> transportation = transportationRepo.findAll();
         return transportation;
     }
+    @CrossOrigin
     @GetMapping("/{id}")
     public Transportation getTransportationById(@PathVariable Integer id) {
         Transportation transportation = transportationRepo.findById(id).get();
         return transportation;
     }
+    @CrossOrigin
     @GetMapping("/oftype/{id}")
     public Iterable<Transportation> getAllTransportationofType(@PathVariable Integer id) {
         Iterable<Transportation> transportation = transportationRepo.findAllByTransportationType(typeRepo.getById(id));
         return transportation;
     }
+    @CrossOrigin
     @PostMapping("/")
     public Transportation CreateTransport(@RequestBody Transportation transportation) throws URISyntaxException, DataAccessException, DataFormatException, DataIntegrityViolationException {
 
         transportationRepo.save(transportation);
         return transportation;
     }
+    @CrossOrigin
     @PutMapping("/")
     public Transportation UpdateTransport(@RequestBody Transportation transportation) throws URISyntaxException, DataAccessException, DataFormatException, DataIntegrityViolationException {
 
         transportationRepo.save(transportation);
         return transportation;
     }
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public Transportation DeleteTransport(@PathVariable Integer id) {
         Transportation transportation =transportationRepo.findById(id).get();
         transportationRepo.deleteById(id);
         return transportation;
     }
-
+    @CrossOrigin
     @GetMapping("/types")
     public Iterable<TransportationType> getAllTransportationTypes() {
         Iterable<TransportationType> transportationTypes = typeRepo.findAll();
         return transportationTypes;
     }
+    @CrossOrigin
     @GetMapping("types/{id}")
     public TransportationType getTransportationTypeById(@PathVariable Integer id) {
         TransportationType transportation = typeRepo.findById(id).get();
         return transportation;
     }
+    @CrossOrigin
     @PostMapping("/types")
     public TransportationType CreateTransportType(@RequestBody TransportationType type) throws URISyntaxException, DataAccessException, DataFormatException, DataIntegrityViolationException {
         typeRepo.save(type);
         return type;
     }
+    @CrossOrigin
     @DeleteMapping("/types/{id}")
     public TransportationType DeleteTransportType(@PathVariable Integer id) {
         TransportationType type = typeRepo.findById(id).get();

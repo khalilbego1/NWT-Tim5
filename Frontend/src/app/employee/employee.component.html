@@ -4,36 +4,82 @@
             <ngb-tab title="Create destination">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
-                        <form (ngSubmit)="submitUser($event)" [ngbCollapse]="isCountryCollapsed">
-                            <div class="form-group">
+                            <button type="button" class="btn btnCollapse" (click)="isCountryCollapsed=!isCountryCollapsed; isRegionCollapsed=true;isCityCollapsed=true;isDestinationCollapsed=true">Country
+                                </button>
+                                <div class="empty"></div>
+                        <form (ngSubmit)="submitCountry($event)" [ngbCollapse]="isCountryCollapsed">
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
                             </div>
-                            <div class="buttonSpace">
+                            <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
                                 <button type="submit" class="btn">Create</button>
                             </div>
                         </form>
-                        <button type="button" class="btn" (click)="isCountryCollapsed=!isCountryCollapsed">Add Country
-                        </button>
-                        <form (ngSubmit)="submitUser($event)" [ngbCollapse]="isRegionCollapsed">
-                            <div class="form-group">
+
+
+                        <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse" (click)="isRegionCollapsed=!isRegionCollapsed; isCountryCollapsed =true;isCityCollapsed=true;isDestinationCollapsed=true">Region
+                            </button>
+                            <div class="empty"></div>
+                        <form (ngSubmit)="submitRegion($event)" [ngbCollapse]="isRegionCollapsed">
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
                             </div>
-                            <div class="form-group">
-                                <select class="form-control" (ngModelChange)="setRole($event)"
-                                        [(ngModel)]="selectedRole" [ngModelOptions]="{standalone: true}">
-                                    <option *ngFor="let role of RoleData" [(ngValue)]="role">{{role.type}}</option>
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
+                                <select class="form-control" (ngModelChange)="setCountry($event)"
+                                        [(ngModel)]="selectedCountry" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let country of countries" [(ngValue)]="country">{{country.name}}</option>
                                 </select>
                             </div>
-                            <div class="buttonSpace">
+                            <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
                                 <button type="submit" class="btn">Create</button>
                             </div>
                         </form>
-                        <button type="button" class="btn" (click)="isRegionCollapsed=!isRegionCollapsed">Add Region
-                        </button>
+
+
+
+                        <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse" (click)="isCityCollapsed=!isCityCollapsed; isCountryCollapsed =true;isRegionCollapsed=true;isDestinationCollapsed=true;">City
+                            </button>
+                            <div class="empty"></div>
+                        <form (ngSubmit)="submitCity($event)" [ngbCollapse]="isCityCollapsed">
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
+                                <input type="text" class="form-control" required placeholder="Name" name="name">
+                            </div>
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
+                                <select class="form-control" (ngModelChange)="setRegion($event)"
+                                        [(ngModel)]="selectedRegion" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let region of regions" [(ngValue)]="region">{{region.name}}</option>
+                                </select>
+                            </div>
+                            <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
+                                <button type="submit" class="btn">Create</button>
+                            </div>
+                        </form>
+
+
+                        <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse" (click)="isDestinationCollapsed=!isDestinationCollapsed; isCountryCollapsed =true;isRegionCollapsed=true;isCityCollapsed=true;">Destination
+                            </button>
+                            <div class="empty"></div>
+                        <form (ngSubmit)="submitDestination($event)" [ngbCollapse]="isDestinationCollapsed">
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
+                                <input type="text" class="form-control" required placeholder="Name" name="name">
+                            </div>
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
+                                <select class="form-control" (ngModelChange)="setCity($event)"
+                                        [(ngModel)]="selectedCity" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let city of cities" [(ngValue)]="city">{{city.name}}</option>
+                                </select>
+                            </div>
+                            <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
+                                <button type="submit" class="btn">Create</button>
+                            </div>
+                        </form>
                     </div>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab title="All users">
+            <ngb-tab title="All destinations">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
                         <form>
@@ -47,7 +93,7 @@
                     </div>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab title="Create role">
+            <ngb-tab title="Create transportation">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
                         <form (ngSubmit)="submitRole($event)">
@@ -67,7 +113,7 @@
                     </div>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab title="All roles">
+            <ngb-tab title="All transportation">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
                         <ul class="list-group">
