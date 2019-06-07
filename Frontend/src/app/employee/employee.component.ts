@@ -97,6 +97,7 @@ async createCountry(country:Country){
 }
 
 
+
 setCountry(country:any){
     this.selectedCountry =country;
 }
@@ -111,24 +112,30 @@ submitCountry(event:any){
     let country:Country = new Country();
     country.name = event.target.name.value;
     this.createCountry(country);
+    this.isCountryCollapsed=true;
 }
 submitRegion(event:any){
     let region:Region = new Region();
     region.name = event.target.name.value;
     region.country=this.selectedCountry;
     this.createRegion(region);
+    this.isRegionCollapsed = true;
 }
 submitCity(event:any){
     let city:City = new City();
     city.name = event.target.name.value;
     city.region=this.selectedRegion;
     this.createCity(city);
+    this.isCityCollapsed = true;
 }
 submitDestination(event:any){
     let destination:Destination = new Destination();
     destination.name = event.target.name.value;
     destination.city=this.selectedCity;
     this.createDestination(destination);
+    this.isDestinationCollapsed=true;
 }
-
+onDeletedDest(deleted: boolean) {
+    if (deleted) this.getDestinations();
+}
 }

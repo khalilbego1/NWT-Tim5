@@ -40,7 +40,7 @@ export class LocationService {
     }
 
     oneDestination(id: number) {
-        return this.request('get', baseUrl + '/destinations' + String(id))
+        return this.request('get', baseUrl + '/destinations/' + String(id))
     }
 
     allDestinationsInCity(city: City) {
@@ -52,11 +52,11 @@ export class LocationService {
     }
 
     editDestination(id: number, dest: Destination) {
-        return this.request('put', baseUrl + '/destinations' + String(id), dest);
+        return this.request('put', baseUrl + '/destinations/' + String(id), dest);
     }
 
     deleteDestination(id: number) {
-        return this.request('delete', baseUrl + '/destinations' + String(id))
+        return this.request('delete', baseUrl + '/destinations/' + String(id))
     }
 
 
@@ -65,7 +65,7 @@ export class LocationService {
     }
 
     oneCity(id: number) {
-        return this.request('get', baseUrl + '/city' + String(id))
+        return this.request('get', baseUrl + '/cities/' + String(id))
     }
 
     allCitiesInRegion(region: Region) {
@@ -77,11 +77,11 @@ export class LocationService {
     }
 
     editCity(id: number, city: City) {
-        return this.request('put', baseUrl + '/cities' + String(id), city);
+        return this.request('put', baseUrl + '/cities/' + String(id), city);
     }
 
     deleteCity(id: number) {
-        return this.request('delete', baseUrl + '/' + String(id))
+        return this.request('delete', baseUrl + '/cities/' + String(id))
     }
 
     allRegions() {
@@ -89,7 +89,7 @@ export class LocationService {
     }
 
     oneRegion(id: number) {
-        return this.request('get', baseUrl + '/regions' + String(id))
+        return this.request('get', baseUrl + '/regions/' + String(id))
     }
 
     allRegionsinCountry(country: Country) {
@@ -101,11 +101,11 @@ export class LocationService {
     }
 
     editRegion(id: number, region: Region) {
-        return this.request('put', baseUrl + '/regions' + String(id), region);
+        return this.request('put', baseUrl + '/regions/' + String(id), region);
     }
 
     deleteRegion(id: number) {
-        return this.request('delete', baseUrl + '/regions' + String(id))
+        return this.request('delete', baseUrl + '/regions/' + String(id))
     }
 
     allCountries() {
@@ -113,7 +113,7 @@ export class LocationService {
     }
 
     oneCountry(id: number) {
-        return this.request('get', baseUrl + '/countries' + String(id))
+        return this.request('get', baseUrl + '/countries/' + String(id))
     }
 
     addCountry(country: Country) {
@@ -121,10 +121,10 @@ export class LocationService {
     }
 
     editCountry(id: number, country: Country) {
-        return this.request('put', baseUrl + '/countries' + String(id), country);
+        return this.request('put', baseUrl + '/countries/' + String(id), country);
     }
 
     deleteCountry(id: number) {
-        return this.request('delete', baseUrl + '/countries' + String(id))
+        return this.request('delete', baseUrl + '/countries/' + String(id))
     }
 }

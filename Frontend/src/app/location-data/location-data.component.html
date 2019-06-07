@@ -1,3 +1,24 @@
-<p>
-  location-data works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+         Naziv: {{destination.name}}
+      </div>
+      <div class="col">
+        Grad: {{destination.city.name}}
+      </div>
+      <div class="col">
+        Regija: {{destination.city.region.name}}
+      </div>
+      <div class ="col">
+        Zemlja: {{destination.city.region.country.name}}
+      </div>
+      <div class="col">
+        <button class="btn">Edit</button>
+      </div>
+      <div class="col">
+        <button class="btn" (click)="delete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

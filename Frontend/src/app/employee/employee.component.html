@@ -12,7 +12,7 @@
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
                             </div>
                             <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
-                                <button type="submit" class="btn">Create</button>
+                                <button type="submit" class="btn" >Create</button>
                             </div>
                         </form>
 
@@ -86,8 +86,8 @@
                         </form>
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <app-user-data *ngFor="let user of UserData" [user]="user"
-                                               (onDeleted)="onDeletedUser($event)"></app-user-data>
+                                <app-location-data *ngFor="let destination of destinations" [destination]="destination"
+                                               (onDeleted)="onDeletedDest($event)"></app-location-data>
                             </li>
                         </ul>
                     </div>

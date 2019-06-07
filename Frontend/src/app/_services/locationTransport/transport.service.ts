@@ -62,7 +62,7 @@ export class TransportService {
     }
 
     oneTransportType(id: number) {
-        return this.request('get', baseUrl + '/types' + String(id))
+        return this.request('get', baseUrl + '/types/' + String(id))
     }
 
     addTransportType(transT: TransportType) {
@@ -70,10 +70,10 @@ export class TransportService {
     }
 
     editTransportType(id: number, transT: TransportType) {
-        return this.request('put', baseUrl + '/types' + String(id), transT);
+        return this.request('put', baseUrl + '/types/' + String(id), transT);
     }
 
     deleteTransportType(id: number) {
-        return this.request('delete', baseUrl + '/types' + String(id))
+        return this.request('delete', baseUrl + '/types/' + String(id))
     }
 }
