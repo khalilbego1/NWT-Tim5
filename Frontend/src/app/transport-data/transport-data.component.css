@@ -1,0 +1,22 @@
+.card{
+    background-color: rgb(30, 81, 139);
+    color: white;
+
+}
+.card-body{
+    padding: 1%;
+}
+.btn{
+    background-color:#2977D1;
+    color: white;
+    margin: 0.2%;
+    width:100%;
+
+}
+.col{
+    font-size: 125%
+}
+.row{
+
+    height: 5%
+}

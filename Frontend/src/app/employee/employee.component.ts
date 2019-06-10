@@ -4,6 +4,7 @@ import {City} from '../_services/locationTransport/city'
 import {Region} from '../_services/locationTransport/region'
 import {Country} from '../_services/locationTransport/country'
 import {LocationService} from '../_services/locationTransport/location.service'
+import {TransportService} from '../_services/locationTransport/transport.service'
 import {TransportType} from "../_services/locationTransport/transportType";
 import {Transport} from "../_services/locationTransport/transport";
 
@@ -19,6 +20,8 @@ export class EmployeeComponent implements OnInit {
     isRegionCollapsed: boolean = true;
     isCityCollapsed: boolean = true;
     isDestinationCollapsed: boolean = true;
+    isTransportCollapsed: boolean = true;
+    isTransportationTypeCollapsed: boolean = true;
 
     destinations: Destination[];
     cities: City[];
@@ -28,13 +31,15 @@ export class EmployeeComponent implements OnInit {
     selectedCountry: Country = new Country();
     selectedRegion: Region = new Region();
     selectedCity: City = new City();
+    selectedTransport: Transport = new Transport();
 
     TransportTypeData: TransportType[];
     TransportData: Transport[];
     selectedTransportType: TransportType = new TransportType();
     newTransportation: Transport = new Transport();
+    newTransportationType: TransportType = new TransportType();
 
-    constructor(public locationService: LocationService) {
+    constructor(public locationService: LocationService, public transportService: TransportService) {
     }
 
     ngOnInit() {
@@ -43,11 +48,14 @@ export class EmployeeComponent implements OnInit {
         this.cities = [];
         this.regions = [];
         this.countries = [];
+        this.TransportData = [];
+        this.TransportTypeData = [];
         this.getDestinations();
         this.getCities();
         this.getRegions();
         this.getCountries();
-
+        this.getTransportTypes();
+        this.getTransportations();
     }
 
     async getDestinations() {
@@ -86,6 +94,24 @@ export class EmployeeComponent implements OnInit {
         console.log(this.countries)
     }
 
+    async getTransportTypes() {
+        const data = await this.transportService.allTransportTypes();
+        if (data != undefined)
+            this.TransportTypeData = data;
+        else
+            this.TransportTypeData = [];
+    }
+
+    async getTransportations() {
+        const data = await this.transportService.allTransport();
+        if (data != undefined) {
+            this.TransportData = data;
+            this.selectedTransport = this.TransportData[0];
+        } else
+            this.TransportData = [];
+        console.log(this.TransportData);
+    }
+
     async createDestination(dest: Destination) {
         await this.locationService.addDestination(dest);
         this.getDestinations();
@@ -104,6 +130,16 @@ export class EmployeeComponent implements OnInit {
     async createCountry(country: Country) {
         await this.locationService.addCountry(country);
         this.getCountries();
+    }
+
+    async createNewTransport() {
+        await this.transportService.addTransport(this.newTransportation);
+        this.getTransportations();
+    }
+
+    async createNewTransportType() {
+        await this.transportService.addTransportType(this.newTransportationType);
+        this.getTransportTypes();
     }
 
     setCountry(country: any) {
@@ -153,20 +189,26 @@ export class EmployeeComponent implements OnInit {
         if (deleted) this.getDestinations();
     }
 
-    async createNewTransport() {
-
-    }
-
     onDeleteTransport(deleted: boolean) {
+        if (deleted) this.getTransportations();
     }
 
     setTransportType(type: any) {
+        console.log(type);
         this.selectedTransportType = type;
     }
 
     submitTransportation(event: any) {
         this.newTransportation.name = event.target.name.value;
         this.newTransportation.transportType = this.selectedTransportType;
+        console.log(this.newTransportation);
         this.createNewTransport();
+        this.isTransportCollapsed = true;
+    }
+
+    submitTransportationType(event: any) {
+        this.newTransportationType.name = event.target.name.value;
+        this.createNewTransportType();
+        this.isTransportationTypeCollapsed = true;
     }
 }

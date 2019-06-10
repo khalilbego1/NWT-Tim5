@@ -104,11 +104,32 @@
             <ngb-tab title="Create transportation">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
-                        <form (ngSubmit)="submitTransportation($event)">
-                            <div class="form-group">
+                        <button type="button" class="btn btnCollapse"
+                                (click)="isTransportationTypeCollapsed=!isTransportationTypeCollapsed; isTransportCollapsed=true;">
+                            Transportation type
+                        </button>
+                        <div class="empty"></div>
+                        <form (ngSubmit)="submitTransportationType($event)" [ngbCollapse]="isTransportationTypeCollapsed">
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
                             </div>
-                            <div class="form-group">
+                            <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
+                                <button type="submit" class="btn">Add transportation type</button>
+                            </div>
+                        </form>
+
+
+                        <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse"
+                                (click)="isTransportCollapsed=!isTransportCollapsed; isTransportationTypeCollapsed =true;">
+                            Transportation
+                        </button>
+                        <div class="empty"></div>
+                        <form (ngSubmit)="submitTransportation($event)" [ngbCollapse]="isTransportCollapsed">
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
+                                <input type="text" class="form-control" required placeholder="Name" name="name">
+                            </div>
+                            <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <select class="form-control" (ngModelChange)="setTransportType($event)"
                                         [(ngModel)]="selectedTransportType" [ngModelOptions]="{standalone: true}">
                                     <option *ngFor="let type of TransportTypeData"
@@ -117,10 +138,11 @@
                             </div>
                             <div class="empty">
                             </div>
-                            <div class="buttonSpace">
+                            <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
                                 <button type="submit" class="btn">Add transportation</button>
                             </div>
                         </form>
+
                     </div>
                 </ng-template>
             </ngb-tab>

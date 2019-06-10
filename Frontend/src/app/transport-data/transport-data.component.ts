@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Transport} from "../_services/locationTransport/transport";
+import {TransportService} from "../_services/locationTransport/transport.service";
 
 @Component({
     selector: 'app-transport-data',
@@ -9,12 +10,16 @@ import {Transport} from "../_services/locationTransport/transport";
 export class TransportDataComponent implements OnInit {
 
     @Input() transportation: Transport;
-    @Output() onDeleted = new EventEmitter<Transport>();
+    @Output() onDeleted = new EventEmitter<boolean>();
 
-    constructor() {
+    constructor(public transportService: TransportService) {
     }
 
     ngOnInit() {
     }
 
+    async delete() {
+        await this.transportService.deleteTransport(this.transportation.id);
+        this.onDeleted.emit(true);
+    }
 }
