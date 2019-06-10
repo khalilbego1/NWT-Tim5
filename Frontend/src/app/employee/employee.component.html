@@ -4,23 +4,27 @@
             <ngb-tab title="Create destination">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
-                            <button type="button" class="btn btnCollapse" (click)="isCountryCollapsed=!isCountryCollapsed; isRegionCollapsed=true;isCityCollapsed=true;isDestinationCollapsed=true">Country
-                                </button>
-                                <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse"
+                                (click)="isCountryCollapsed=!isCountryCollapsed; isRegionCollapsed=true;isCityCollapsed=true;isDestinationCollapsed=true">
+                            Country
+                        </button>
+                        <div class="empty"></div>
                         <form (ngSubmit)="submitCountry($event)" [ngbCollapse]="isCountryCollapsed">
                             <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
                             </div>
                             <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
-                                <button type="submit" class="btn" >Create</button>
+                                <button type="submit" class="btn">Create</button>
                             </div>
                         </form>
 
 
                         <div class="empty"></div>
-                        <button type="button" class="btn btnCollapse" (click)="isRegionCollapsed=!isRegionCollapsed; isCountryCollapsed =true;isCityCollapsed=true;isDestinationCollapsed=true">Region
-                            </button>
-                            <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse"
+                                (click)="isRegionCollapsed=!isRegionCollapsed; isCountryCollapsed =true;isCityCollapsed=true;isDestinationCollapsed=true">
+                            Region
+                        </button>
+                        <div class="empty"></div>
                         <form (ngSubmit)="submitRegion($event)" [ngbCollapse]="isRegionCollapsed">
                             <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
@@ -28,7 +32,8 @@
                             <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <select class="form-control" (ngModelChange)="setCountry($event)"
                                         [(ngModel)]="selectedCountry" [ngModelOptions]="{standalone: true}">
-                                    <option *ngFor="let country of countries" [(ngValue)]="country">{{country.name}}</option>
+                                    <option *ngFor="let country of countries"
+                                            [(ngValue)]="country">{{country.name}}</option>
                                 </select>
                             </div>
                             <div class="buttonSpace" style="margin-left: 8%;margin-right: 8%">
@@ -37,11 +42,12 @@
                         </form>
 
 
-
                         <div class="empty"></div>
-                        <button type="button" class="btn btnCollapse" (click)="isCityCollapsed=!isCityCollapsed; isCountryCollapsed =true;isRegionCollapsed=true;isDestinationCollapsed=true;">City
-                            </button>
-                            <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse"
+                                (click)="isCityCollapsed=!isCityCollapsed; isCountryCollapsed =true;isRegionCollapsed=true;isDestinationCollapsed=true;">
+                            City
+                        </button>
+                        <div class="empty"></div>
                         <form (ngSubmit)="submitCity($event)" [ngbCollapse]="isCityCollapsed">
                             <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
@@ -59,9 +65,11 @@
 
 
                         <div class="empty"></div>
-                        <button type="button" class="btn btnCollapse" (click)="isDestinationCollapsed=!isDestinationCollapsed; isCountryCollapsed =true;isRegionCollapsed=true;isCityCollapsed=true;">Destination
-                            </button>
-                            <div class="empty"></div>
+                        <button type="button" class="btn btnCollapse"
+                                (click)="isDestinationCollapsed=!isDestinationCollapsed; isCountryCollapsed =true;isRegionCollapsed=true;isCityCollapsed=true;">
+                            Destination
+                        </button>
+                        <div class="empty"></div>
                         <form (ngSubmit)="submitDestination($event)" [ngbCollapse]="isDestinationCollapsed">
                             <div class="form-group" style="margin-left: 8%;margin-right: 8%">
                                 <input type="text" class="form-control" required placeholder="Name" name="name">
@@ -87,7 +95,7 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <app-location-data *ngFor="let destination of destinations" [destination]="destination"
-                                               (onDeleted)="onDeletedDest($event)"></app-location-data>
+                                                   (onDeleted)="onDeletedDest($event)"></app-location-data>
                             </li>
                         </ul>
                     </div>
@@ -96,18 +104,21 @@
             <ngb-tab title="Create transportation">
                 <ng-template ngbTabContent>
                     <div class="tab-form">
-                        <form (ngSubmit)="submitRole($event)">
+                        <form (ngSubmit)="submitTransportation($event)">
                             <div class="form-group">
-                                <input type="text" class="form-control" required placeholder="Type" name="type">
+                                <input type="text" class="form-control" required placeholder="Name" name="name">
                             </div>
                             <div class="form-group">
-                                <textarea rows="4" class="form-control" placeholder="Description"
-                                          (input)="this.newRole.description = $event.target.value"></textarea>
+                                <select class="form-control" (ngModelChange)="setTransportType($event)"
+                                        [(ngModel)]="selectedTransportType" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let type of TransportTypeData"
+                                            [(ngValue)]="type">{{type.name}}</option>
+                                </select>
                             </div>
                             <div class="empty">
                             </div>
                             <div class="buttonSpace">
-                                <button type="submit" class="btn">Add role</button>
+                                <button type="submit" class="btn">Add transportation</button>
                             </div>
                         </form>
                     </div>
@@ -118,8 +129,9 @@
                     <div class="tab-form">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <app-role-data *ngFor="let role of RoleData" [role]="role"
-                                               (onDeleted)="onDeletedRole($event)"></app-role-data>
+                                <app-transport-data *ngFor="let transportation of TransportData"
+                                               [transportation]="transportation"
+                                               (onDeleted)="onDeleteTransport($event)"></app-transport-data>
                             </li>
                         </ul>
                     </div>
