@@ -5,7 +5,7 @@ import {Region} from './region'
 import {City} from './city'
 import {Destination} from './destination'
 
-const baseUrl = 'http://localhost:8090/location';
+const baseUrl = 'http://localhost:8585/travelAgency/location-service/location';
 
 @Injectable({
     providedIn: 'root'

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Transport} from './transport'
 import {TransportType} from './transportType'
 
-const baseUrl = 'http://localhost:8090/transportations';
+const baseUrl = 'http://localhost:8585/travelAgency/location-service/transportations';
 
 @Injectable({
     providedIn: 'root'
