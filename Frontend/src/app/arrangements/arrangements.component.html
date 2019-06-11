@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arrangements</title>
+</head>
+
+    <div class="card">
+        <div class="card-body">
+            <ngb-tabset type="pills">
+                <ngb-tab title="Arrangement details">
+                    <ng-template ngbTabContent>
+                        <div class="tab-form">
+                        <form (ngSubmit)="openAdditionalActivity($event)">
+                            <div class="form-group" style="display: flex;">
+                                <button type="submit" class="arr-btn btn" disabled="true" style="width: 45%;">Additional activity</button>
+                                <div >
+                                    <select class="form-control" (ngModelChange)="setAdditionalActivity($event)" style="width: 530%;"
+                                            [(ngModel)]="additionalActivity" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let arrangement of arrangements" [(ngValue)]="arrangement">{{arrangement.additionalActivity.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex;">
+                                <button type="submit" class="arr-btn btn" disabled="true" style="width: 45%;">User</button>
+                                <!--                                <input type="text" class="form-control" required placeholder="London, Antwerp..."-->
+                                <!--                                       name="Location">-->
+                                <div >
+                                    <select class="form-control" (ngModelChange)="setUser($event)" style="width: 290%;"
+                                            [(ngModel)]="user" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let arrangement of arrangements" [(ngValue)]="arrangement">{{arrangement.user.username}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex;">
+                                <button type="submit" class="arr-btn btn" style="width: 210%;" disabled="true">From/To</button>
+                                <input type="text" class="form-control" required placeholder="From"
+                                       name="From">
+                                <input type="text" class="form-control" required placeholder="To"
+                                       name="To">
+                            </div>
+                            <div class="form-group" style="display: flex;">
+                                <button type="submit" class="arr-btn btn" disabled="true" style="width: 45%;">Transportation type</button>
+                                <!--                                <input type="text" class="form-control" required placeholder="London, Antwerp..."-->
+                                <!--                                       name="Location">-->
+                                <div >
+                                    <select class="form-control" (ngModelChange)="setTransportType($event)" style="width: 490%;"
+                                            [(ngModel)]="transportType" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let arrangement of arrangements" [(ngValue)]="arrangement">{{arrangement.transportationType.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex;">
+                                <button type="submit" class="arr-btn btn" disabled="true" style="width: 45%;">Location</button>
+<!--                                <input type="text" class="form-control" required placeholder="London, Antwerp..."-->
+<!--                                       name="Location">-->
+                                <div >
+                                    <select class="form-control" (ngModelChange)="setLocation($event)" style="width: 480%;"
+                                            [(ngModel)]="destination" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let arrangement of arrangements" [(ngValue)]="arrangement">{{arrangement.destination.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+<!--                            <div class="form-group">-->
+<!--                                <select class="form-control" (ngModelChange)="setRole($event)"-->
+<!--                                        [(ngModel)]="selectedRole" [ngModelOptions]="{standalone: true}">-->
+<!--                                    <option *ngFor="let role of RoleData" [(ngValue)]="role">{{role.type}}</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+                            <div class="empty">
+                            </div>
+                            <div class="buttonSpace">
+                                <button type="submit" class="btn" style="margin-left: 55%;">Save Changes</button>
+                            </div>
+                        </form>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Arrangement list">
+                    <ng-template ngbTabContent>
+                        <form >
+                            <div class="form-group">
+<!--                                [(ngModel)]="queryString"-->
+                                <input type="text" [(ngModel)]="queryString"  class="form-control" style="margin-top: 2%;" required placeholder="Arrangement name.."
+                                       name="arrangement">
+<!--                                <div class="buttonSpace">-->
+<!--                                    <button type="submit" class="btn">Search</button>-->
+<!--                                </div>-->
+                            </div>
+                        </form>
+                        <ul>
+<!--                            | FilterPipe: queryString-->
+                            <li *ngFor="let element of arrangements | FilterPipe: queryString" style="display:flex">
+                                <input type="text" class="form-control" style="margin-top: 2%;" required placeholder="{{element.name}}"
+                                       name="arrangement" disabled="true">
+                                <div class="buttonSpace">
+                                    <button type="submit" class="btn" style="margin-top: 25%;">Details</button>
+                                </div>
+                            </li>
+                        </ul>
+<!--                        <div class="tab-form">-->
+<!--                            <form>-->
+<!--                            </form>-->
+<!--                            <ul class="list-group">-->
+<!--                                <li class="list-group-item">-->
+<!--                                    <app-user-data *ngFor="let user of UserData" [user]="user"-->
+<!--                                                   (onDeleted)="onDeletedUser($event)"></app-user-data>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+
+</html>
