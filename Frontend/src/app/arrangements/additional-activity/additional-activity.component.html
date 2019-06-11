@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Additional Activity</title>
+</head>
+
+<div class="card">
+    <div class="card-body">
+        <ngb-tabset type="pills" style="text-align: center; width: 880%; font-weight: 800;">
+            <ngb-tab title="Add additional activity" >
+            <ng-template ngbTabContent>
+                <div class="tab-form">
+                    <form (ngSubmit)="submitAdditionalActivity($event)">
+                        <div class="form-group">
+                            <input type="text" class="form-control" required placeholder="Type" name="type">
+                        </div>
+                        <div class="form-group">
+                                <textarea rows="4" class="form-control" placeholder="Description"
+                                          (input)="this.additionalActivity.description = $event.target.value"></textarea>
+                        </div>
+                        <div class="empty">
+                        </div>
+                        <div class="buttonSpace">
+                            <button type="submit" class="btn">Add additional activity</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
+
+
+</html>
