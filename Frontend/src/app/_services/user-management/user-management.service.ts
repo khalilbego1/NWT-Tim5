@@ -48,7 +48,7 @@ export class UserManagementService {
     }
 
     registration(user: User) {
-        return this.request('post', baseUrl + '/registration', user)
+        return this.request('post', baseUrl + '/register', user)
     }
 
     editUser(id: number, user: User) {

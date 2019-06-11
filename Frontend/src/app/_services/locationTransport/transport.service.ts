@@ -26,7 +26,6 @@ export class TransportService {
             body: data,
             responseType: 'json',
             observe: 'body'
-
         });
         return new Promise<any>((resolve, reject) => {
             result.subscribe(resolve as any, reject as any);
