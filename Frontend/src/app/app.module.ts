@@ -21,6 +21,8 @@ import { EditRoleDialogComponent } from './role-data/edit-role-dialog/edit-role-
 import { RoleDetailsDialogComponent } from './role-data/role-details-dialog/role-details-dialog.component';
 import { LocationDataComponent } from './location-data/location-data.component';
 import { TransportDataComponent } from './transport-data/transport-data.component'
+import {ArrangementsComponent} from "./arrangements/arrangements.component";
+import {FilterPipe} from "./FilterPipe/FilterPipe";
 
 @NgModule({
     imports: [
@@ -34,10 +36,11 @@ import { TransportDataComponent } from './transport-data/transport-data.componen
             {path: 'register', component: RegisterComponent},
             {path: 'admin', component: AdminComponent},
             {path: 'admin/:id', component: AdminComponent},
-            {path: 'employee', component: EmployeeComponent}
+            {path: 'employee', component: EmployeeComponent},
+            {path: 'arrangements', component: ArrangementsComponent},
         ])
     ],
-    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent, LocationDataComponent, TransportDataComponent],
+    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent, LocationDataComponent, TransportDataComponent, ArrangementsComponent, FilterPipe],
     bootstrap: [AppComponent],
     providers: [{provide: APP_BASE_HREF, useValue: '/'}],
 })
