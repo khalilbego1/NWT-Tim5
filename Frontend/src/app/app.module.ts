@@ -23,6 +23,7 @@ import { LocationDataComponent } from './location-data/location-data.component';
 import { TransportDataComponent } from './transport-data/transport-data.component'
 import {ArrangementsComponent} from "./arrangements/arrangements.component";
 import {FilterPipe} from "./FilterPipe/FilterPipe";
+import {AdditionalActivityComponent} from "./arrangements/additional-activity/additional-activity.component";
 
 @NgModule({
     imports: [
@@ -38,9 +39,10 @@ import {FilterPipe} from "./FilterPipe/FilterPipe";
             {path: 'admin/:id', component: AdminComponent},
             {path: 'employee', component: EmployeeComponent},
             {path: 'arrangements', component: ArrangementsComponent},
+            {path: 'additionalActivity', component: AdditionalActivityComponent},
         ])
     ],
-    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent, LocationDataComponent, TransportDataComponent, ArrangementsComponent, FilterPipe],
+    declarations: [AppComponent, HelloComponent, NavbarComponent, LoginComponent, RegisterComponent, AdminComponent, UserDataComponent, RoleDataComponent, EmployeeComponent, PassengerComponent, EditDialogComponent, DetailsDialogComponent, EditRoleDialogComponent, RoleDetailsDialogComponent, LocationDataComponent, TransportDataComponent, ArrangementsComponent, FilterPipe, AdditionalActivityComponent],
     bootstrap: [AppComponent],
     providers: [{provide: APP_BASE_HREF, useValue: '/'}],
 })
